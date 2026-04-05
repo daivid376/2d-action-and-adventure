@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b5akoewk1njp7"]
+
+[ext_resource type="Texture2D" uid="uid://cmmnoetooc06a" path="res://Assets/Props/Plants/Sprites/Props.png" id="1_6uxoc"]
+[ext_resource type="Script" uid="uid://d4bhpx7j8xht8" path="res://Assets/Props/Plants/Plant.gd" id="1_eg4sk"]
+[ext_resource type="PackedScene" uid="uid://baxa3rmg235l7" path="res://GenerralNodes/HurtBox/HurtBox.tscn" id="2_3saht"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6uxoc"]
+size = Vector2(26, 24)
+
+[node name="Plant" type="Node2D" unique_id=992169264]
+script = ExtResource("1_eg4sk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=725333407]
+position = Vector2(0, -5)
+texture = ExtResource("1_6uxoc")
+hframes = 16
+vframes = 3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1726561247]
+y_sort_enabled = true
+position = Vector2(0, -5)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=997211886]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_6uxoc")
+
+[node name="HurtBox" parent="." unique_id=272991628 instance=ExtResource("2_3saht")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=325992848]
+shape = SubResource("RectangleShape2D_6uxoc")

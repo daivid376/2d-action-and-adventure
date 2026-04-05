@@ -1,0 +1,788 @@
+[gd_scene format=3 uid="uid://dihh7ioljrm1a"]
+
+[ext_resource type="Texture2D" uid="uid://ds0ud0bgyblfx" path="res://Assets/Player/Sprites/ExamplePlayerSprite.png" id="1_rpqav"]
+[ext_resource type="Texture2D" uid="uid://k544ikrbwc8g" path="res://Assets/Player/Sprites/PlayerSprite02.png" id="3_nn08x"]
+[ext_resource type="Texture2D" uid="uid://dh2x3hfqqbway" path="res://Assets/Player/Sprites/AttackSprite01.png" id="4_bhhdu"]
+[ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Assets/Player/Sprites/Shadow.png" id="5_yoq75"]
+[ext_resource type="Script" uid="uid://bdr7igi1vkmmo" path="res://Assets/Player/Scripts/PlayerInteractionsHost.gd" id="6_52ee3"]
+[ext_resource type="AudioStream" uid="uid://b2eqcqyrf31o2" path="res://Assets/Player/Audio/SwordSwoosh.wav" id="9_megsn"]
+[ext_resource type="PackedScene" uid="uid://dp1nd4spnvn5h" path="res://GenerralNodes/HitBox/HitBox.tscn" id="11_ksbbd"]
+
+[sub_resource type="GDScript" id="GDScript_bhhdu"]
+script/source = "class_name Player extends CharacterBody2D
+
+const MOVE_SPEED :float = 200.0
+var direction : Vector2 = Vector2.ZERO
+
+enum FacingDirection {UP,DOWN,RIGHT,LEFT}
+var cardinal_direction: FacingDirection = FacingDirection.DOWN
+#enum PlayerState {IDLE,WALK}
+#var state : PlayerState = PlayerState.IDLE
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var state_machine: StateMachine = $StateMachine
+
+func _ready():
+	state_machine.init(self)
+	pass
+	
+func _process(delta):
+	#var stateChanged : bool = update_state()
+	#var directionChanged : bool = update_direction()
+	#if stateChanged || directionChanged:
+		#
+		#
+	#
+	pass
+	
+func _physics_process(delta: float) -> void:
+	direction = Input.get_vector(\"move_left\",'move_right','move_up','move_down')
+	
+	move_and_slide()
+
+
+func update_animation(current_state:String) -> void:
+	var play_anim : String = current_state + '_' + get_animation_direction_name()
+	if not animation_player.has_animation(play_anim):
+		push_error('Animation not found: ' + play_anim)
+		return 
+	elif animation_player.current_animation != play_anim:
+		animation_player.play(play_anim)
+	
+
+		
+func get_animation_direction_name() -> String:
+	
+	var dir_name:String = FacingDirection.find_key(cardinal_direction).to_lower()
+	dir_name = 'side' if dir_name in['left','right'] else dir_name
+	return dir_name
+
+#func get_state_name() -> String:
+	#match state:
+		#PlayerState.IDLE:
+			#return 'idle'
+		#PlayerState.WALK:
+			#return 'walk'
+		#_:
+			#return 'idle'
+#func update_state() -> bool:
+	#var new_state = PlayerState.IDLE if direction == Vector2.ZERO else PlayerState.WALK
+	#if new_state == state:
+		#return false
+	#else:
+		#state = new_state
+		#return true
+func update_direction() -> bool:
+	
+	if direction == Vector2.ZERO:
+		return false
+		
+	var new_cardinal_dir : FacingDirection = FacingDirection.DOWN
+	if abs(direction.x) > abs(direction.y):
+		new_cardinal_dir = FacingDirection.RIGHT if direction.x > 0.0 else FacingDirection.LEFT
+	else:
+		new_cardinal_dir = FacingDirection.DOWN if direction.y >0.0 else FacingDirection.UP
+	
+	if new_cardinal_dir == cardinal_direction:
+		return false
+	else:
+		cardinal_direction = new_cardinal_dir
+		var abs_scale_x = abs(sprite_2d.scale.x)
+		sprite_2d.scale.x = -1 * abs_scale_x if cardinal_direction == FacingDirection.LEFT else abs_scale_x
+		return true
+	
+	
+	
+	
+	
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(0, 0, 40, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(40, 0, 40, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dewec"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(80, 0, 40, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6xle2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyqiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gntrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dewec")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle_side",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_glx4g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:show_behind_parent")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_miouo"]
+resource_name = "attack_down"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:show_behind_parent")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o3h8g"]
+resource_name = "attack_side"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:show_behind_parent")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.13333334),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3.585, -2.715)]
+}
+
+[sub_resource type="Animation" id="Animation_1e7my"]
+resource_name = "attack_up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:show_behind_parent")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o3h8g"]
+_data = {
+&"RESET": SubResource("Animation_glx4g"),
+&"attack_down": SubResource("Animation_miouo"),
+&"attack_side": SubResource("Animation_o3h8g"),
+&"attack_up": SubResource("Animation_1e7my")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4ce8"]
+size = Vector2(18.5, 11.5)
+
+[sub_resource type="Animation" id="Animation_kyqiw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_megsn"]
+resource_name = "attack_down"
+length = 0.2
+step = 0.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_ksbbd"]
+resource_name = "attack_side"
+length = 0.2
+step = 0.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [27, 28, 29]
+}
+
+[sub_resource type="Animation" id="Animation_yoq75"]
+resource_name = "attack_up"
+length = 0.2
+step = 0.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_5ixxa"]
+resource_name = "idle_down"
+length = 0.4
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_gntrk"]
+resource_name = "idle_side"
+length = 0.4
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_dewec"]
+resource_name = "idle_up"
+length = 0.4
+loop_mode = 2
+step = 0.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_nn08x"]
+resource_name = "walk_down"
+length = 0.3
+loop_mode = 2
+step = 0.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.16666667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_52ee3"]
+resource_name = "walk_side"
+length = 0.3
+loop_mode = 2
+step = 0.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.11666667, 0.18333334, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_bhhdu"]
+resource_name = "walk_up"
+length = 0.3
+loop_mode = 2
+step = 0.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.11666667, 0.18333334, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ixxa"]
+_data = {
+&"RESET": SubResource("Animation_kyqiw"),
+&"attack_down": SubResource("Animation_megsn"),
+&"attack_side": SubResource("Animation_ksbbd"),
+&"attack_up": SubResource("Animation_yoq75"),
+&"idle_down": SubResource("Animation_5ixxa"),
+&"idle_side": SubResource("Animation_gntrk"),
+&"idle_up": SubResource("Animation_dewec"),
+&"walk_down": SubResource("Animation_nn08x"),
+&"walk_side": SubResource("Animation_52ee3"),
+&"walk_up": SubResource("Animation_bhhdu")
+}
+
+[sub_resource type="GDScript" id="GDScript_megsn"]
+script/source = "class_name StateMachine extends Node
+
+var states : Array[State]
+var prev_state : State
+var current_state: State
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	change_state(current_state.process(delta))
+func _physics_process(delta: float) -> void:
+	change_state(current_state.physics_process(delta))
+func _unhandled_input(event: InputEvent) -> void:
+	change_state(current_state.handle_input(event))
+
+func init(_player : Player) -> void:
+	states = []
+	for c in get_children():
+		if c is State:
+			states.append(c)
+	if states.size() > 0:
+		states[0].player = _player
+		change_state(states[0])
+		
+	
+
+func change_state(new_state: State) -> void:
+	if !new_state or new_state== current_state:
+		return
+	if current_state:
+		current_state.exit()
+	prev_state = current_state
+	
+	current_state = new_state
+	current_state.enter()
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_yoq75"]
+script/source = "class_name State_Idle extends State
+
+@onready var state_walk: State_Walk = $\"../Walk\"
+@onready var state_attack: State_Attack = $\"../Attack\"
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+#what happens when the player enters this State?
+func enter()-> void:
+	player.velocity = Vector2.ZERO
+	player.update_animation('idle')
+	
+	pass
+#what happens during the _process update in this State?
+func process(_delta: float)-> State:
+	player.velocity = Vector2.ZERO
+	if player.direction != Vector2.ZERO:
+		return state_walk
+	return null
+#what happens when the player exit this State?
+func exit()-> void:
+	pass
+
+#what happens during the _physics_process update in this State?
+func physics_process(_delta: float)-> State:
+	return null
+
+#what happens with input events in this State?
+func handle_input(_event: InputEvent)-> State:
+	if _event.is_action_pressed(\"attack\"):
+		return state_attack
+	return null
+"
+
+[sub_resource type="GDScript" id="GDScript_ksbbd"]
+script/source = "class_name State_Walk extends State
+@export var speed :float = 200.0
+@onready var state_idle: State_Idle = $\"../Idle\"
+@onready var state_attack: State_Attack = $\"../Attack\"
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+#what happens when the player enters this State?
+func enter()-> void:
+	player.update_animation('walk')
+	
+	pass
+#what happens during the _process update in this State?
+func process(_delta: float)-> State:
+	if player.direction == Vector2.ZERO:
+		return state_idle
+	player.velocity = player.direction * speed
+	if player.update_direction():
+		player.update_animation('walk')
+	return null
+#what happens when the player exit this State?
+func exit()-> void:
+	pass
+
+#what happens during the _physics_process update in this State?
+func physics_process(_delta: float)-> State:
+	return null
+
+#what happens with input events in this State?
+func handle_input(_event: InputEvent)-> State:
+	if _event.is_action_pressed(\"attack\"):
+		return state_attack
+	return null
+"
+
+[sub_resource type="GDScript" id="GDScript_glx4g"]
+script/source = "class_name State_Attack extends State
+
+@onready var state_walk: State_Walk = $\"../Walk\"
+@onready var state_idle: State_Idle = $\"../Idle\"
+@onready var animation_player: AnimationPlayer = $\"../../AnimationPlayer\"
+@onready var anim_finished: Signal = animation_player.animation_finished
+@onready var attackFX_animation_player: AnimationPlayer = $\"../../Sprite2D/Sprite_AttackFX/AnimationPlayer\"
+@onready var audio_stream_player: AudioStreamPlayer2D = $\"../../Audio/AudioStreamPlayer2D\"
+@onready var hit_box: HitBox = $\"../../Interactions/HitBox\"
+
+var is_attacking : bool = false
+
+@export var attack_audio: AudioStream
+@export_range(1.,20.,0.5) var attack_decelerate:float = 5.
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+#what happens when the player enters this State?
+func enter()-> void:
+	
+	player.update_animation('attack')
+	attackFX_animation_player.play(\"attack_\" + player.get_animation_direction_name())
+	is_attacking = true
+	anim_finished.connect(_on_attack_finished)
+	if attack_audio:
+		audio_stream_player.stream = attack_audio
+		audio_stream_player.pitch_scale = randf_range(0.8,1.2)
+		audio_stream_player.play()
+	
+	await get_tree().create_timer(0.05).timeout
+	hit_box.monitoring = true
+
+	
+	
+	#a.connect(func(anim_name:String): is_attacking = false)
+	#a.connect(func(anim_name:String)->void:if 'attack' in anim_name:is_attacking = false )
+	#a.connect(set_attack)
+	
+	pass
+#what happens during the _process update in this State?
+func process(_delta: float)-> State:
+	if !is_attacking:
+		if player.direction != Vector2.ZERO:
+			return state_walk
+		else:
+			return state_idle
+	else:
+		player.velocity -= player.velocity * attack_decelerate * _delta
+	return null
+#what happens when the player exit this State?
+func exit()-> void:
+	if anim_finished.is_connected(_on_attack_finished):
+		player.animation_player.animation_finished.disconnect(_on_attack_finished)
+	hit_box.monitoring = false
+	print('hitbox disable')
+
+	pass
+
+#what happens during the _physics_process update in this State?
+func physics_process(_delta: float)-> State:
+	return null
+
+#what happens with input events in this State?
+func handle_input(_event: InputEvent)-> State:
+	
+	return null
+func _on_attack_finished(anim_name:StringName)-> void:
+	print(anim_name + ' the anim name')
+	if 'attack' in anim_name:
+		is_attacking = false
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_glx4g"]
+radius = 17.117243
+
+[node name="Player" type="CharacterBody2D" unique_id=1947446878]
+script = SubResource("GDScript_bhhdu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1939741383]
+visible = false
+position = Vector2(0, -22)
+sprite_frames = SubResource("SpriteFrames_6xle2")
+animation = &"idle_side"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=80905905]
+position = Vector2(0, -21)
+texture = ExtResource("3_nn08x")
+hframes = 16
+vframes = 3
+
+[node name="Sprite_AttackFX" type="Sprite2D" parent="Sprite2D" unique_id=159390159]
+visible = false
+position = Vector2(10, 0)
+texture = ExtResource("4_bhhdu")
+hframes = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/Sprite_AttackFX" unique_id=1714809135]
+libraries/ = SubResource("AnimationLibrary_o3h8g")
+autoplay = &"RESET"
+
+[node name="ShadowSprite" type="Sprite2D" parent="Sprite2D" unique_id=1436451652]
+self_modulate = Color(0.09, 0.09, 0.09, 0.6117647)
+show_behind_parent = true
+position = Vector2(0, 22)
+texture = ExtResource("5_yoq75")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=994454839]
+position = Vector2(-0.25, -5.25)
+shape = SubResource("RectangleShape2D_u4ce8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1646701533]
+libraries/ = SubResource("AnimationLibrary_5ixxa")
+autoplay = &"idle_down"
+
+[node name="StateMachine" type="Node" parent="." unique_id=899219306]
+script = SubResource("GDScript_megsn")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1041020799]
+script = SubResource("GDScript_yoq75")
+
+[node name="Walk" type="Node" parent="StateMachine" unique_id=1960929484]
+script = SubResource("GDScript_ksbbd")
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=2140417845]
+script = SubResource("GDScript_glx4g")
+attack_audio = ExtResource("9_megsn")
+attack_decelerate = 3.5
+
+[node name="Audio" type="Node2D" parent="." unique_id=1879123176]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Audio" unique_id=1523246344]
+max_polyphony = 8
+
+[node name="Interactions" type="Node2D" parent="." unique_id=2130288108]
+script = ExtResource("6_52ee3")
+
+[node name="HitBox" parent="Interactions" unique_id=1663791989 instance=ExtResource("11_ksbbd")]
+position = Vector2(0, 13)
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/HitBox" unique_id=1702736711]
+shape = SubResource("CircleShape2D_glx4g")
+debug_color = Color(0.9999998, 0.0023922427, 0.09469784, 0.41960785)

@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://c0e5rgihlrqs0"]
+
+[ext_resource type="Script" uid="uid://ccpfsjw35w4wa" path="res://GUI/pause_menu/pause_menu.gd" id="1_jidfa"]
+[ext_resource type="Texture2D" uid="uid://b2f4py0qv7ljv" path="res://items/sprites/items.png" id="2_38mpk"]
+[ext_resource type="PackedScene" uid="uid://cifkkjawjrw8j" path="res://GUI/pause_menu/inventory/inventory_slot.tscn" id="3_g3417"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko2kv"]
+atlas = ExtResource("2_38mpk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aohaa"]
+texture = SubResource("AtlasTexture_ko2kv")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[node name="PauseMenuGui" type="CanvasLayer" unique_id=1528206007]
+process_mode = 3
+script = ExtResource("1_jidfa")
+
+[node name="Control" type="Control" parent="." unique_id=178769397]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=896484530]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -62.0
+offset_right = 62.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21950102, 0.21950102, 0.21950102, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=98556129]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -33.0
+offset_right = 49.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer" unique_id=226529128]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Save_Button" type="Button" parent="Control/VBoxContainer" unique_id=787071496]
+layout_mode = 2
+text = "save"
+
+[node name="Load_Button" type="Button" parent="Control/VBoxContainer" unique_id=1091014371]
+layout_mode = 2
+text = "load"
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=242739888]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 75.0
+offset_right = 432.0
+offset_bottom = 205.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_aohaa")
+
+[node name="GridContainer" type="GridContainer" parent="Control/PanelContainer" unique_id=1227812516]
+layout_direction = 2
+layout_mode = 2
+columns = 4
+
+[node name="InventorySlot" parent="Control/PanelContainer/GridContainer" unique_id=1344839629 instance=ExtResource("3_g3417")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Control/PanelContainer/GridContainer" unique_id=808194151 instance=ExtResource("3_g3417")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Control/PanelContainer/GridContainer" unique_id=1863345803 instance=ExtResource("3_g3417")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Control/PanelContainer/GridContainer" unique_id=2034115319 instance=ExtResource("3_g3417")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="Control/PanelContainer/GridContainer" unique_id=654889310 instance=ExtResource("3_g3417")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="Control/PanelContainer/GridContainer" unique_id=815124019 instance=ExtResource("3_g3417")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="Control/PanelContainer/GridContainer" unique_id=2100582869 instance=ExtResource("3_g3417")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="Control/PanelContainer/GridContainer" unique_id=200154850 instance=ExtResource("3_g3417")]
+layout_mode = 2
