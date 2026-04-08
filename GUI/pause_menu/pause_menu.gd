@@ -1,4 +1,4 @@
-class_name PauseMenuGUI extends CanvasLayer
+extends CanvasLayer
 
 var paused :bool = false
 @onready var save_button: Button = $Control/VBoxContainer/Save_Button
