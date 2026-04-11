@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dw1ini2k88qsd"]
+
+[ext_resource type="Script" uid="uid://djtihyl6t1ejn" path="res://items/scripts/item_data.gd" id="1_8h85v"]
+[ext_resource type="Script" uid="uid://lxs0wlwae6xy" path="res://items/item_effects/item_effect.gd" id="1_s0kd1"]
+[ext_resource type="Texture2D" uid="uid://b2f4py0qv7ljv" path="res://items/sprites/items.png" id="2_2nysy"]
+[ext_resource type="Resource" uid="uid://bekysgn5cccim" path="res://items/item_effects/item_effect_heal.tres" id="2_s0kd1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbvxt"]
+atlas = ExtResource("2_2nysy")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_8h85v")
+texture = SubResource("AtlasTexture_gbvxt")
+item_name = "gem"
+description = "drink to heal "
+effects = Array[ExtResource("1_s0kd1")]([ExtResource("2_s0kd1")])
+metadata/_custom_type_script = "uid://djtihyl6t1ejn"

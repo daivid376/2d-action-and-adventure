@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cewunpn328s8c" path="res://Actors/Player/Scripts/Player.gd" id="1_glx4g"]
 [ext_resource type="Texture2D" uid="uid://ds0ud0bgyblfx" path="res://Actors/Player/Sprites/ExamplePlayerSprite.png" id="1_rpqav"]
+[ext_resource type="Resource" uid="uid://bi884jq2h0vol" path="res://GUI/pause_menu/inventory/player_inventory.tres" id="2_iwmb3"]
 [ext_resource type="Texture2D" uid="uid://k544ikrbwc8g" path="res://Actors/Player/Sprites/PlayerSprite02.png" id="3_nn08x"]
 [ext_resource type="Texture2D" uid="uid://dh2x3hfqqbway" path="res://Actors/Player/Sprites/AttackSprite01.png" id="4_bhhdu"]
 [ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Actors/Player/Sprites/Shadow.png" id="5_yoq75"]
@@ -600,6 +601,7 @@ height = 38.0
 [node name="Player" type="CharacterBody2D" unique_id=1947446878]
 collision_mask = 16
 script = ExtResource("1_glx4g")
+inventory_data = ExtResource("2_iwmb3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1939741383]
 visible = false

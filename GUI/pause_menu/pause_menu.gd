@@ -3,13 +3,17 @@ extends CanvasLayer
 var paused :bool = false
 @onready var save_button: Button = $Control/VBoxContainer/Save_Button
 @onready var load_button: Button = $Control/VBoxContainer/Load_Button
+@onready var item_description: Label = %"ItemDescription"
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+signal shown
+signal hidden
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_pause_menu(false)
 	save_button.pressed.connect(_on_save_button_pressed)
 	load_button.pressed.connect(_on_load_button_pressed)
-	
+	item_description.text = ''
 	pass # Replace with function body.
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -26,6 +30,9 @@ func set_pause_menu(_bool : bool)-> void:
 	get_tree().paused = _bool
 	if _bool:
 		save_button.grab_focus()
+		shown.emit()
+	else:
+		hidden.emit()
 	
 func _on_save_button_pressed()-> void:
 	if !paused:
@@ -39,3 +46,6 @@ func _on_load_button_pressed()-> void:
 	SaveManager.load_game()
 	set_pause_menu(false)
 	pass
+
+func update_item_description(new_description: String)-> void:
+	item_description.text = new_description
