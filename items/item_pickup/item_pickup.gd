@@ -20,9 +20,11 @@ func _ready() -> void:
 	area_2d.body_entered.connect(_on_body_entered)
 	if play_drop_animation_on_ready:
 		animation_player.play('drop_item')
-	movement_component.speed = pending_drop_speed
-	movement_component.set_direction(pending_drop_dir)
-	movement_component.decelerate = pending_deceleration
+		movement_component.speed = pending_drop_speed
+		movement_component.set_direction(pending_drop_dir)
+		movement_component.decelerate = pending_deceleration
+	else:
+		movement_component.process_mode = Node.PROCESS_MODE_DISABLED
 
 	pass
 func _physics_process(_delta: float) -> void:
@@ -30,7 +32,7 @@ func _physics_process(_delta: float) -> void:
 	pass
 func _on_body_entered(_body:Node)->void:
 	if _body is Player:
-		var picked = _body.inventory_data.add_item(self.item)
+		var picked = _body.inventory.add_item(self.item)
 		if picked:
 			item_pick_up()
 	pass

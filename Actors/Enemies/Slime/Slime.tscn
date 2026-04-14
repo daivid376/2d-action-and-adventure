@@ -452,13 +452,13 @@ _data = {
 [sub_resource type="Resource" id="Resource_ikiyk"]
 script = ExtResource("8_04mbm")
 item = ExtResource("9_xjlbj")
-probability = 91.0
-min_amout = 3
-max_amout = 6
+probability = 97.0
+min_amout = 6
+max_amout = 10
 metadata/_custom_type_script = "uid://bhbiip7preea5"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_71yej"]
-radius = 14.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_wv8rj"]
+radius = 18.52
 
 [sub_resource type="Animation" id="Animation_325k5"]
 length = 0.001
@@ -536,11 +536,14 @@ _data = {
 &"destroy": SubResource("Animation_6c2jp")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_71yej"]
+radius = 12.0
+
 [node name="Slime" type="CharacterBody2D" unique_id=1904874644]
 collision_layer = 256
 collision_mask = 17
 script = ExtResource("1_gftsq")
-max_hp = 2.0
+max_hp = 1.0
 
 [node name="ShadowSprite2D" type="Sprite2D" parent="." unique_id=1681510257]
 self_modulate = Color(0.27, 0.09198, 0.021599997, 0.6392157)
@@ -609,9 +612,9 @@ collision_mask = 0
 script = ExtResource("10_51uvq")
 metadata/_custom_type_script = "uid://duv6577brgwv2"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=885741635]
+[node name="CollisionShape2D_Hurt" type="CollisionShape2D" parent="HurtBox" unique_id=885741635]
 position = Vector2(0, -13)
-shape = SubResource("CircleShape2D_71yej")
+shape = SubResource("CircleShape2D_wv8rj")
 debug_color = Color(0.8285684, 0.39302334, 0.17244872, 0.41960785)
 
 [node name="DestroyEffectSprite" type="Sprite2D" parent="." unique_id=1162334162]
@@ -631,7 +634,7 @@ collision_mask = 2
 script = ExtResource("15_6vt6k")
 metadata/_custom_type_script = "uid://na12vr6uh8m7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1307377240]
+[node name="CollisionShape2D_Hit" type="CollisionShape2D" parent="HitBox" unique_id=1307377240]
 position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_71yej")
 debug_color = Color(0.72, 0.06479999, 0.1958402, 0.69411767)

@@ -12,6 +12,5 @@ func _ready() -> void:
 func _on_state_changed(current_state:State):
 	if current_state is EnemyStateDying:
 		if hit_box:
-			print('set enemy hitbox off')
 			hit_box.monitoring = false
 	pass

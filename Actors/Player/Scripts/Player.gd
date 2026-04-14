@@ -1,7 +1,7 @@
 class_name Player extends Actor
 @onready var camera :Camera2D = self.get_node_or_null('Camera2D')
 var input_direction : Vector2 = Vector2.ZERO
-@export var inventory_data : Inventory
+@export var inventory : Inventory
 const SAVE_FIELDS:Array = ['hp','max_hp','global_position']
 
 		

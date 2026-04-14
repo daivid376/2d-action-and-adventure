@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dihh7ioljrm1a"]
 
-[ext_resource type="Script" uid="uid://dpf0fiiiy6j2t" path="res://Actors/Player/Scripts/player.gd" id="1_bsr8u"]
+[ext_resource type="Script" uid="uid://cewunpn328s8c" path="res://Actors/Player/Scripts/player.gd" id="1_bsr8u"]
 [ext_resource type="Resource" uid="uid://bi884jq2h0vol" path="res://GUI/pause_menu/inventory/player_inventory.tres" id="2_cwpch"]
 [ext_resource type="Texture2D" uid="uid://ds0ud0bgyblfx" path="res://Actors/Player/Sprites/example_player_sprite.png" id="3_slsra"]
 [ext_resource type="Texture2D" uid="uid://k544ikrbwc8g" path="res://Actors/Player/Sprites/player_sprite_02.png" id="4_gnrir"]
@@ -593,7 +593,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glx4g"]
-radius = 21.0
+radius = 25.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lslt6"]
 height = 38.0
@@ -601,7 +601,7 @@ height = 38.0
 [node name="Player" type="CharacterBody2D" unique_id=1947446878]
 collision_mask = 16
 script = ExtResource("1_bsr8u")
-inventory_data = ExtResource("2_cwpch")
+inventory = ExtResource("2_cwpch")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1939741383]
 visible = false
@@ -681,7 +681,7 @@ position = Vector2(0, 22)
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/HitBox" unique_id=1702736711]
-position = Vector2(0, -3)
+position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_glx4g")
 debug_color = Color(0.9999998, 0.0023922427, 0.09469784, 0.41960785)
 
