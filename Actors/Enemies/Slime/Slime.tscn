@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://c8b4kphx2wmji" path="res://Components/Movement/movement_component.gd" id="4_vad3e"]
 [ext_resource type="AudioStream" uid="uid://dogovnrwke4f5" path="res://Actors/Enemies/Slime/Audios/hit_01.wav" id="4_ylkmo"]
 [ext_resource type="Script" uid="uid://b3lon2w5x28xm" path="res://Components/AnimationComponents/animation_component.gd" id="5_ef4uu"]
-[ext_resource type="Script" uid="uid://r2s82bwmr1hh" path="res://Components/State/state_machine.gd" id="6_ylkmo"]
+[ext_resource type="Script" uid="uid://cybaa3t7x2eho" path="res://Components/State/state_machine.gd" id="6_ylkmo"]
 [ext_resource type="Script" uid="uid://b0t25al805fac" path="res://Components/loot_component.gd" id="7_58h7x"]
 [ext_resource type="Script" uid="uid://bovy8pj7a2pr7" path="res://Actors/Enemies/Slime/Scripts/enemy_state_idle.gd" id="7_vad3e"]
 [ext_resource type="Script" uid="uid://bhbiip7preea5" path="res://items/item_loot/loot_data.gd" id="8_04mbm"]
@@ -579,7 +579,6 @@ metadata/_custom_type_script = "uid://b0t25al805fac"
 
 [node name="StateMachine" type="Node" parent="." unique_id=1636326499]
 script = ExtResource("6_ylkmo")
-metadata/_custom_type_script = "uid://r2s82bwmr1hh"
 
 [node name="Enemy_State_Idle" type="Node" parent="StateMachine" unique_id=617949245 node_paths=PackedStringArray("after_idle_state")]
 script = ExtResource("7_vad3e")

@@ -3,7 +3,7 @@ class_name StateMachine extends Node
 var states : Array[State]
 var prev_state : State
 var current_state: State
-
+signal state_changed(current_state:State)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_process(false)
@@ -40,6 +40,7 @@ func change_state(new_state: State) -> void:
 	
 	current_state = new_state
 	current_state.enter()
+	state_changed.emit(current_state)
 	# if self.get_parent().name == 'Player':
 	# 	print(current_state)
 	# 	print('----')
