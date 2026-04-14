@@ -7,11 +7,11 @@ class_name ItemPickup extends CharacterBody2D
 @onready var movement_component: MovementComponent = $MovementComponent
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
-@export var item_data : Item :set = _set_item_data
+@export var item : Item :set = _set_item_data
 
 var pending_drop_speed:float  =0.
 var pending_drop_dir:Vector2 = Vector2.ZERO
-var pending_decelerate:float = 0.
+var pending_deceleration:float = 0.
 var play_drop_animation_on_ready: bool = false
 func _ready() -> void:
 	_update_texture()
@@ -22,7 +22,7 @@ func _ready() -> void:
 		animation_player.play('drop_item')
 	movement_component.speed = pending_drop_speed
 	movement_component.set_direction(pending_drop_dir)
-	movement_component.decelerate = pending_decelerate
+	movement_component.decelerate = pending_deceleration
 
 	pass
 func _physics_process(_delta: float) -> void:
@@ -30,7 +30,7 @@ func _physics_process(_delta: float) -> void:
 	pass
 func _on_body_entered(_body:Node)->void:
 	if _body is Player:
-		var picked = _body.inventory_data.add_item(self.item_data)
+		var picked = _body.inventory_data.add_item(self.item)
 		if picked:
 			item_pick_up()
 	pass
@@ -43,10 +43,10 @@ func item_pick_up()->void:
 
 
 func _set_item_data(value: Item)-> void:
-	item_data = value
+	item = value
 	_update_texture()
 
 func _update_texture()->void:
-	if !sprite_2d or !item_data:
+	if !sprite_2d or !item:
 		return
-	sprite_2d.texture = item_data.texture
+	sprite_2d.texture = item.texture

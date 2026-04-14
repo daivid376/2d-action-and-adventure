@@ -35,16 +35,16 @@ side = 3
 
 [node name="ItemPickup" parent="." unique_id=1844688070 instance=ExtResource("5_pwydo")]
 position = Vector2(161, 106)
-item_data = ExtResource("6_th3kk")
+item = ExtResource("8_f2d14")
 
 [node name="ItemPickup2" parent="." unique_id=987614146 instance=ExtResource("5_pwydo")]
 position = Vector2(102, 82)
-item_data = ExtResource("8_f2d14")
+item = ExtResource("7_b60gt")
 
 [node name="ItemPickup3" parent="." unique_id=178259050 instance=ExtResource("5_pwydo")]
 position = Vector2(49, 96)
-item_data = ExtResource("7_b60gt")
+item = ExtResource("9_b60gt")
 
 [node name="ItemPickup4" parent="." unique_id=820956037 instance=ExtResource("5_pwydo")]
 position = Vector2(387, 103)
-item_data = ExtResource("9_b60gt")
+item = ExtResource("6_th3kk")

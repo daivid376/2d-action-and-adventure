@@ -1,5 +1,5 @@
-class_name LootData extends Resource
-@export var item_data : Item
+class_name LootEntry extends Resource
+@export var item : Item
 @export_range(0.,100.,1.,'suffix:%') var probability : float = 80.
 @export_range(1,10,1,'suffix:items') var min_amout : int = 1
 @export_range(1,10,1,'suffix:items') var max_amout : int = 1

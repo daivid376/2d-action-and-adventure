@@ -1,6 +1,6 @@
 class_name InventorySlotUI extends Button
 
-var slot_data : Slot: set = set_slot_data
+var slot : Slot: set = set_slot_data
 
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var label: Label = $Label
@@ -16,22 +16,22 @@ func _ready() -> void:
 
 	
 func set_slot_data(value: Slot)-> void:
-	if slot_data:
-		if slot_data.slot_changed.is_connected(_refresh_ui):
-			slot_data.slot_changed.disconnect(_refresh_ui)
+	if slot:
+		if slot.slot_changed.is_connected(_refresh_ui):
+			slot.slot_changed.disconnect(_refresh_ui)
 	
-	slot_data = value
+	slot = value
 	
-	if slot_data and not slot_data.slot_changed.is_connected(_refresh_ui):
-		slot_data.slot_changed.connect(_refresh_ui)
+	if slot and not slot.slot_changed.is_connected(_refresh_ui):
+		slot.slot_changed.connect(_refresh_ui)
 
 	_refresh_ui()
 	pass
 
 func update_item_description_label()-> void:
 	var item_description = ''
-	if !self.slot_data.is_empty():
-		item_description =self.slot_data.item_data.description
+	if !self.slot.is_empty():
+		item_description =self.slot.item.description
 	else:
 		item_description = ''
 	PauseMenuGui.update_item_description(item_description)
@@ -41,20 +41,20 @@ func clear_item_description_label()-> void:
 
 func item_pressed() -> void:
 	print("pressed: ", self, " id=", get_instance_id(), " path=", get_path())
-	if !self.slot_data.is_empty():
-		var used : bool =  self.slot_data.item_data.use()
+	if !self.slot.is_empty():
+		var used : bool =  self.slot.item.use()
 		if used:
-			self.slot_data.use_slot(1)
+			self.slot.use_slot(1)
 
 func _refresh_ui()-> void:
-	if !slot_data or slot_data.is_empty():
+	if !slot or slot.is_empty():
 		texture_rect.texture = null
 		label.text = ''
 		return
-	if !self.slot_data.is_empty():
-		self.texture_rect.texture = slot_data.item_data.texture
-	self.label.text = str(slot_data.quantity)
+	if !self.slot.is_empty():
+		self.texture_rect.texture = slot.item.texture
+	self.label.text = str(slot.quantity)
 
 #func _on_slot_emptied()->void:
-	#self.slot_data.is_empty = true
+	#self.slot.is_empty = true
 	#_refresh_ui()

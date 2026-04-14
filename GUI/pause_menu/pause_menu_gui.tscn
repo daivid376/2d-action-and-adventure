@@ -87,7 +87,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_38mpk")
 layout_mode = 2
 columns = 4
 script = ExtResource("3_ko2kv")
-data = ExtResource("4_ko2kv")
+inventory = ExtResource("4_ko2kv")
 
 [node name="ItemDescription" type="Label" parent="Control" unique_id=1316766144]
 unique_name_in_owner = true
