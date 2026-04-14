@@ -26,7 +26,7 @@ func enter()-> void:
 		audio_stream_player.pitch_scale = randf_range(0.8,1.2)
 		audio_stream_player.play()
 	
-	await get_tree().create_timer(0.05).timeout
+	await get_tree().create_timer(0.025).timeout
 	if is_attacking:
 		hit_box.monitoring = true
 
