@@ -7,7 +7,7 @@ class_name StateStun extends State
 var knockback_dir: Vector2
 var is_stunned:bool = false
 func _on_actor_assigned()->void:
-	actor.hurt_box.Damaged.connect(_on_damaged)
+	actor.hurt_box.damaged.connect(_on_damaged)
 
 #what happens when the actor enters this State?
 func enter()-> void:

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bdo1k1okd0dy2" path="res://items/item_pickup/item_pickup.gd" id="1_0g51u"]
 [ext_resource type="AudioStream" uid="uid://c1kqb68dney44" path="res://items/item_pickup/item_pickup.wav" id="2_0rscd"]
-[ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Actors/Player/Sprites/Shadow.png" id="2_tc5ok"]
+[ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Actors/Player/Sprites/shadow.png" id="2_tc5ok"]
 [ext_resource type="Texture2D" uid="uid://b2f4py0qv7ljv" path="res://items/sprites/items.png" id="3_7rq5k"]
-[ext_resource type="Script" uid="uid://c8b4kphx2wmji" path="res://Components/Movement/MovementComponent.gd" id="5_7rq5k"]
+[ext_resource type="Script" uid="uid://c8b4kphx2wmji" path="res://Components/Movement/movement_component.gd" id="5_7rq5k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0rscd"]
 

@@ -1,5 +1,5 @@
 extends Node
-const PLAYER = preload("res://Actors/Player/Player.tscn")
+const PLAYER = preload("res://Actors/Player/player.tscn")
 var player: Player
 var current_tilemap_bounds: Array[ Vector2 ]
 signal tilemap_bounds_changed(bounds : Array[Vector2])

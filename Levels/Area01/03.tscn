@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c0bn756ucypwm" path="res://Levels/Scripts/level.gd" id="1_ryupc"]
 [ext_resource type="PackedScene" uid="uid://dvpnrviqpy237" path="res://Assets/TileMap/grass_01.tscn" id="2_koc1c"]
 [ext_resource type="PackedScene" uid="uid://oaqbq40cwt6r" path="res://Levels/level_transition.tscn" id="4_ut76y"]
-[ext_resource type="PackedScene" uid="uid://decg2sr4oliuf" path="res://Actors/Enemies/Slime/Slime.tscn" id="5_koc1c"]
+[ext_resource type="PackedScene" uid="uid://decg2sr4oliuf" path="res://Actors/Enemies/Slime/slime.tscn" id="5_koc1c"]
 
 [node name="01" type="Node2D" unique_id=2019430730]
 script = ExtResource("1_ryupc")

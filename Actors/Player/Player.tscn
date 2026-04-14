@@ -1,35 +1,35 @@
 [gd_scene format=3 uid="uid://dihh7ioljrm1a"]
 
-[ext_resource type="Script" uid="uid://cewunpn328s8c" path="res://Actors/Player/Scripts/Player.gd" id="1_glx4g"]
-[ext_resource type="Texture2D" uid="uid://ds0ud0bgyblfx" path="res://Actors/Player/Sprites/ExamplePlayerSprite.png" id="1_rpqav"]
-[ext_resource type="Resource" uid="uid://bi884jq2h0vol" path="res://GUI/pause_menu/inventory/player_inventory.tres" id="2_iwmb3"]
-[ext_resource type="Texture2D" uid="uid://k544ikrbwc8g" path="res://Actors/Player/Sprites/PlayerSprite02.png" id="3_nn08x"]
-[ext_resource type="Texture2D" uid="uid://dh2x3hfqqbway" path="res://Actors/Player/Sprites/AttackSprite01.png" id="4_bhhdu"]
-[ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Actors/Player/Sprites/Shadow.png" id="5_yoq75"]
-[ext_resource type="Script" uid="uid://bdr7igi1vkmmo" path="res://Actors/Player/Scripts/PlayerInteractionsHost.gd" id="6_52ee3"]
-[ext_resource type="Script" uid="uid://r2s82bwmr1hh" path="res://Components/State/State_Machine.gd" id="6_miouo"]
-[ext_resource type="AudioStream" uid="uid://ca3k62ftvufeb" path="res://Actors/Player/Audio/hit_player.wav" id="6_ulo2v"]
-[ext_resource type="Script" uid="uid://cmujeusu1xh02" path="res://Actors/Player/Scripts/State_Idle.gd" id="7_o3h8g"]
-[ext_resource type="Script" uid="uid://c4bmqqqwqora" path="res://Actors/Player/Scripts/State_Walk.gd" id="8_1e7my"]
-[ext_resource type="Script" uid="uid://b41a6w4y0gpxf" path="res://Actors/Player/Scripts/State_Attack.gd" id="9_arntx"]
-[ext_resource type="AudioStream" uid="uid://b2eqcqyrf31o2" path="res://Actors/Player/Audio/SwordSwoosh.wav" id="9_megsn"]
-[ext_resource type="PackedScene" uid="uid://dp1nd4spnvn5h" path="res://GenerralNodes/HitBox/HitBox.tscn" id="11_ksbbd"]
-[ext_resource type="Script" uid="uid://sriovpdq8bma" path="res://Actors/Player/Scripts/PlayerCamera.gd" id="13_miouo"]
-[ext_resource type="Script" uid="uid://c8b4kphx2wmji" path="res://Components/Movement/MovementComponent.gd" id="14_o3h8g"]
-[ext_resource type="Script" uid="uid://cvp4w7n16r8go" path="res://Components/State/BaseStunState.gd" id="14_ulo2v"]
-[ext_resource type="Script" uid="uid://b3lon2w5x28xm" path="res://Components/AnimationComponents/AnimationComponent.gd" id="15_1e7my"]
-[ext_resource type="Script" uid="uid://duv6577brgwv2" path="res://GenerralNodes/HurtBox/HurtBox.gd" id="15_arntx"]
+[ext_resource type="Script" uid="uid://cewunpn328s8c" path="res://Actors/Player/Scripts/player.gd" id="1_bsr8u"]
+[ext_resource type="Resource" uid="uid://bi884jq2h0vol" path="res://GUI/pause_menu/inventory/player_inventory.tres" id="2_cwpch"]
+[ext_resource type="Texture2D" uid="uid://ds0ud0bgyblfx" path="res://Actors/Player/Sprites/example_player_sprite.png" id="3_slsra"]
+[ext_resource type="Texture2D" uid="uid://k544ikrbwc8g" path="res://Actors/Player/Sprites/player_sprite_02.png" id="4_gnrir"]
+[ext_resource type="Texture2D" uid="uid://dh2x3hfqqbway" path="res://Actors/Player/Sprites/attack_sprite_01.png" id="5_3801m"]
+[ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Actors/Player/Sprites/shadow.png" id="6_nsew1"]
+[ext_resource type="AudioStream" uid="uid://ca3k62ftvufeb" path="res://Actors/Player/Audio/hit_player.wav" id="7_rkige"]
+[ext_resource type="Script" uid="uid://c8b4kphx2wmji" path="res://Components/Movement/movement_component.gd" id="8_a4xvd"]
+[ext_resource type="Script" uid="uid://b3lon2w5x28xm" path="res://Components/AnimationComponents/animation_component.gd" id="9_2smj8"]
+[ext_resource type="Script" uid="uid://r2s82bwmr1hh" path="res://Components/State/state_machine.gd" id="10_e2ks3"]
+[ext_resource type="Script" uid="uid://cmujeusu1xh02" path="res://Actors/Player/Scripts/state_idle.gd" id="11_4k5fm"]
+[ext_resource type="Script" uid="uid://c4bmqqqwqora" path="res://Actors/Player/Scripts/state_walk.gd" id="12_io41c"]
+[ext_resource type="Script" uid="uid://b41a6w4y0gpxf" path="res://Actors/Player/Scripts/state_attack.gd" id="13_47o75"]
+[ext_resource type="AudioStream" uid="uid://b2eqcqyrf31o2" path="res://Actors/Player/Audio/SwordSwoosh.wav" id="14_orm4a"]
+[ext_resource type="Script" uid="uid://cvp4w7n16r8go" path="res://Components/State/base_stun_state.gd" id="15_mwq7b"]
+[ext_resource type="Script" uid="uid://bdr7igi1vkmmo" path="res://Actors/Player/Scripts/player_interactions_host.gd" id="16_gdu4f"]
+[ext_resource type="PackedScene" uid="uid://dp1nd4spnvn5h" path="res://GeneralNodes/HitBox/hit_box.tscn" id="17_oe074"]
+[ext_resource type="Script" uid="uid://sriovpdq8bma" path="res://Actors/Player/Scripts/player_camera.gd" id="18_e2kkj"]
+[ext_resource type="Script" uid="uid://duv6577brgwv2" path="res://GeneralNodes/HurtBox/hurt_box.gd" id="19_p2jnu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
-atlas = ExtResource("1_rpqav")
+atlas = ExtResource("3_slsra")
 region = Rect2(0, 0, 40, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
-atlas = ExtResource("1_rpqav")
+atlas = ExtResource("3_slsra")
 region = Rect2(40, 0, 40, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dewec"]
-atlas = ExtResource("1_rpqav")
+atlas = ExtResource("3_slsra")
 region = Rect2(80, 0, 40, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6xle2"]
@@ -429,7 +429,7 @@ tracks/2/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("6_ulo2v")
+"stream": ExtResource("7_rkige")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -460,7 +460,7 @@ tracks/1/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("6_ulo2v")
+"stream": ExtResource("7_rkige")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -503,7 +503,7 @@ tracks/1/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("6_ulo2v")
+"stream": ExtResource("7_rkige")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -600,8 +600,8 @@ height = 38.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1947446878]
 collision_mask = 16
-script = ExtResource("1_glx4g")
-inventory_data = ExtResource("2_iwmb3")
+script = ExtResource("1_bsr8u")
+inventory_data = ExtResource("2_cwpch")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1939741383]
 visible = false
@@ -611,14 +611,14 @@ animation = &"idle_side"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=80905905]
 position = Vector2(0, -21)
-texture = ExtResource("3_nn08x")
+texture = ExtResource("4_gnrir")
 hframes = 16
 vframes = 3
 
 [node name="Sprite_AttackFX" type="Sprite2D" parent="Sprite2D" unique_id=159390159]
 visible = false
 position = Vector2(10, 0)
-texture = ExtResource("4_bhhdu")
+texture = ExtResource("5_3801m")
 hframes = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/Sprite_AttackFX" unique_id=1714809135]
@@ -629,7 +629,7 @@ autoplay = &"RESET"
 self_modulate = Color(0.09, 0.09, 0.09, 0.6117647)
 show_behind_parent = true
 position = Vector2(0, 22)
-texture = ExtResource("5_yoq75")
+texture = ExtResource("6_nsew1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=994454839]
 position = Vector2(-0.25, -5.25)
@@ -641,27 +641,27 @@ libraries/ = SubResource("AnimationLibrary_5ixxa")
 autoplay = &"idle_down"
 
 [node name="MovementComponent" type="Node" parent="." unique_id=215650831]
-script = ExtResource("14_o3h8g")
+script = ExtResource("8_a4xvd")
 
 [node name="AnimationComponent" type="Node" parent="." unique_id=707065927]
-script = ExtResource("15_1e7my")
+script = ExtResource("9_2smj8")
 
 [node name="StateMachine" type="Node" parent="." unique_id=899219306]
-script = ExtResource("6_miouo")
+script = ExtResource("10_e2ks3")
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=1041020799]
-script = ExtResource("7_o3h8g")
+script = ExtResource("11_4k5fm")
 
 [node name="Walk" type="Node" parent="StateMachine" unique_id=1960929484]
-script = ExtResource("8_1e7my")
+script = ExtResource("12_io41c")
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=2140417845]
-script = ExtResource("9_arntx")
-attack_audio = ExtResource("9_megsn")
+script = ExtResource("13_47o75")
+attack_audio = ExtResource("14_orm4a")
 attack_decelerate = 1000.0
 
 [node name="State_Stun" type="Node" parent="StateMachine" unique_id=1145969348 node_paths=PackedStringArray("next_state")]
-script = ExtResource("14_ulo2v")
+script = ExtResource("15_mwq7b")
 knockback_speed = 150.0
 knockback_decelerate = 500.0
 next_state = NodePath("../Idle")
@@ -674,9 +674,9 @@ max_polyphony = 8
 
 [node name="Interactions" type="Node2D" parent="." unique_id=2130288108]
 position = Vector2(0, -22)
-script = ExtResource("6_52ee3")
+script = ExtResource("16_gdu4f")
 
-[node name="HitBox" parent="Interactions" unique_id=1663791989 instance=ExtResource("11_ksbbd")]
+[node name="HitBox" parent="Interactions" unique_id=1663791989 instance=ExtResource("17_oe074")]
 position = Vector2(0, 22)
 monitoring = false
 
@@ -688,12 +688,12 @@ debug_color = Color(0.9999998, 0.0023922427, 0.09469784, 0.41960785)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=26713380]
 limit_smoothed = true
 position_smoothing_enabled = true
-script = ExtResource("13_miouo")
+script = ExtResource("18_e2kkj")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=608152305]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("15_arntx")
+script = ExtResource("19_p2jnu")
 metadata/_custom_type_script = "uid://duv6577brgwv2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=2098353500]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c0bn756ucypwm" path="res://Levels/Scripts/level.gd" id="1_3e07v"]
 [ext_resource type="PackedScene" uid="uid://dvpnrviqpy237" path="res://Assets/TileMap/grass_01.tscn" id="2_6xle2"]
 [ext_resource type="PackedScene" uid="uid://b5akoewk1njp7" path="res://Assets/Props/Plants/Plant.tscn" id="3_u4ce8"]
-[ext_resource type="PackedScene" uid="uid://decg2sr4oliuf" path="res://Actors/Enemies/Slime/Slime.tscn" id="4_qyfof"]
+[ext_resource type="PackedScene" uid="uid://decg2sr4oliuf" path="res://Actors/Enemies/Slime/slime.tscn" id="4_qyfof"]
 [ext_resource type="PackedScene" uid="uid://dpcuoixknjkb4" path="res://Levels/player_spawn.tscn" id="5_3e07v"]
 
 [node name="Playground" type="Node2D" unique_id=1432817275]
