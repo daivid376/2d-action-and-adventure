@@ -1,6 +1,7 @@
 class_name EnemyStateDestroy extends BaseStunState
 @onready var destroy_animation_player: AnimationPlayer = $"../../DestroyEffectSprite/AnimationPlayer"
 
+
 # Called when the node enters the scene tree for the first time.
 func _on_actor_assigned()->void:
 	actor.died.connect(_on_died)
@@ -9,6 +10,9 @@ func enter()-> void:
 	super()
 	destroy_animation_player.play('destroy')
 	destroy_animation_player.animation_finished.connect(_on_destroy_anim_finished)
+	if actor.loot_component:
+		actor.loot_component.drop()
+	
 	
 #what happens during the _process update in this State?
 func process(_delta: float)-> State:

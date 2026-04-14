@@ -7,8 +7,11 @@
 [ext_resource type="AudioStream" uid="uid://dogovnrwke4f5" path="res://Actors/Enemies/Slime/Audios/hit_01.wav" id="4_ylkmo"]
 [ext_resource type="Script" uid="uid://b3lon2w5x28xm" path="res://Components/AnimationComponents/AnimationComponent.gd" id="5_ef4uu"]
 [ext_resource type="Script" uid="uid://r2s82bwmr1hh" path="res://Components/State/State_Machine.gd" id="6_ylkmo"]
+[ext_resource type="Script" uid="uid://b0t25al805fac" path="res://Components/loot_component.gd" id="7_58h7x"]
 [ext_resource type="Script" uid="uid://bovy8pj7a2pr7" path="res://Actors/Enemies/Slime/Scripts/Enemy_State_Idle.gd" id="7_vad3e"]
+[ext_resource type="Script" uid="uid://bhbiip7preea5" path="res://items/item_loot/loot_data.gd" id="8_04mbm"]
 [ext_resource type="Script" uid="uid://cjtmy6kko0yq5" path="res://Actors/Enemies/Slime/Scripts/Enemy_State_Wander.gd" id="8_ef4uu"]
+[ext_resource type="Resource" uid="uid://b2cpy4lwqrm5x" path="res://items/gem.tres" id="9_xjlbj"]
 [ext_resource type="Script" uid="uid://cvp4w7n16r8go" path="res://Components/State/BaseStunState.gd" id="10_6vt6k"]
 [ext_resource type="Script" uid="uid://duv6577brgwv2" path="res://GenerralNodes/HurtBox/HurtBox.gd" id="10_51uvq"]
 [ext_resource type="Script" uid="uid://cgbyi7qhqxv1u" path="res://Actors/Enemies/Slime/Scripts/Enemy_State_Destroy.gd" id="11_325k5"]
@@ -446,6 +449,14 @@ _data = {
 &"walk_up": SubResource("Animation_4cgtg")
 }
 
+[sub_resource type="Resource" id="Resource_ikiyk"]
+script = ExtResource("8_04mbm")
+item_data = ExtResource("9_xjlbj")
+probability = 91.0
+min_amout = 3
+max_amout = 6
+metadata/_custom_type_script = "uid://bhbiip7preea5"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_71yej"]
 radius = 14.0
 
@@ -529,7 +540,7 @@ _data = {
 collision_layer = 256
 collision_mask = 17
 script = ExtResource("1_gftsq")
-max_hp = 3.0
+max_hp = 1.0
 
 [node name="ShadowSprite2D" type="Sprite2D" parent="." unique_id=1681510257]
 self_modulate = Color(0.27, 0.09198, 0.021599997, 0.6392157)
@@ -560,6 +571,11 @@ metadata/_custom_type_script = "uid://c8b4kphx2wmji"
 [node name="AnimationComponent" type="Node" parent="." unique_id=140412168]
 script = ExtResource("5_ef4uu")
 metadata/_custom_type_script = "uid://b3lon2w5x28xm"
+
+[node name="LootComponent" type="Node" parent="." unique_id=1760000832]
+script = ExtResource("7_58h7x")
+loot_entries = Array[ExtResource("8_04mbm")]([SubResource("Resource_ikiyk"), null])
+metadata/_custom_type_script = "uid://b0t25al805fac"
 
 [node name="StateMachine" type="Node" parent="." unique_id=1636326499]
 script = ExtResource("6_ylkmo")

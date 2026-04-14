@@ -2,6 +2,7 @@ extends Node
 
 const SAVE_DIR = 'user://save/'
 
+signal game_loading
 signal game_loaded
 signal game_saved
 
@@ -23,9 +24,8 @@ func save_game()-> void:
 	}
 	for save_id:String in save_registry.keys():
 		var _obj: Object = save_registry[save_id]
-		var data : Dictionary= build_object_save_data(_obj)
-		if data.is_empty():
-			continue
+		var data = build_object_save_data(_obj)
+		
 		result['objects'][save_id] = data
 	print('save data: ', result)
 	#for test
@@ -36,25 +36,37 @@ func save_game()-> void:
 func load_game()-> void:
 	print('load game')
 	save_data = load_file()
-	if !save_registry.is_empty():
-		var saved_scene_path = save_data['meta']['save_level']
-		if saved_scene_path:
-			await LevelManager.load_level(saved_scene_path)
-		for save_id in save_registry:
-			print('save_registry ',save_registry)
-			print('save_id ',save_id)
-			var _obj = save_registry[save_id]
-			if save_data['objects'].has(save_id):
-				var data = save_data['objects'][save_id]
-				if _obj and data:
-					print('apply data', data)
-					print('_obj:',_obj)
-					apply_object_save_data(_obj,data)
+	if save_registry.is_empty() or save_data.is_empty():
+		return
+	game_loading.emit()
+	await self._load_saved_level(save_data)
+	self._apply_objects_save_data(save_data)
 	game_loaded.emit()
 	
-func build_object_save_data(_obj:Object)-> Dictionary:
+func _load_saved_level(save_data : Dictionary)->void:
+	var saved_scene_path: String = save_data.get("meta", {}).get("save_level", "")
+	print('save manager/load saved level/saved_scene_path ',saved_scene_path)
+	
+	if not saved_scene_path.is_empty():
+		print('save manager/load saved level/saved_scene_path ',saved_scene_path)
+		await LevelManager.load_level(saved_scene_path)
+func _apply_objects_save_data(save_data : Dictionary)->void:
+	var objects : Dictionary = save_data.get('objects',{})
+	#for _obj in objects:
+	for save_id in save_registry.keys():
+		if not objects.has(save_id):
+			continue
+		var _obj : Object = save_registry.get(save_id)
+		var data = objects.get(save_id)
+		if _obj:
+			apply_object_save_data(_obj,data)
+		
+func build_object_save_data(_obj:Object):
 	var data := {}
 	if 'SAVE_FIELDS' not in _obj:
+		if _obj.has_method('to_save_data'):
+			print('this obj: ',_obj)
+			return _obj.to_save_data()
 		return data
 	var fields: Array = _obj.SAVE_FIELDS
 	for key in fields:
@@ -62,8 +74,13 @@ func build_object_save_data(_obj:Object)-> Dictionary:
 		data[key] = serialize_value(_v)
 	return data
 
-func apply_object_save_data(_obj:Object,data:Dictionary)-> void:
+func apply_object_save_data(_obj:Object,data)-> void:
 	if 'SAVE_FIELDS' not in _obj:
+		if _obj.has_method('from_save_data'):
+			_obj.from_save_data(data)
+		return
+	if data is not Dictionary:
+		push_error('Expected Dictionary save data for object with SAVE_FIELDS:%s' %str(_obj))
 		return
 	for field in _obj.SAVE_FIELDS:
 		if data.has(field):
@@ -82,6 +99,7 @@ func serialize_value(value):
 		'x' : value.x,
 		'y' : value.y
 		}
+	
 	return value
 func deserialize_value(value):
 	if value is Dictionary and value.has('__type'):

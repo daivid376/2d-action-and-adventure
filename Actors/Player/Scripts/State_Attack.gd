@@ -2,9 +2,7 @@ class_name StateAttack extends State
 
 @onready var state_walk: StateWalk = $"../Walk"
 @onready var state_idle: StateIdle = $"../Idle"
-@onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
-@onready var anim_finished: Signal = animation_player.animation_finished
-@onready var attackFX_animation_player: AnimationPlayer = $"../../Sprite2D/Sprite_AttackFX/AnimationPlayer"
+@onready var attack_fx_animation_player: AnimationPlayer = $"../../Sprite2D/Sprite_AttackFX/AnimationPlayer"
 @onready var audio_stream_player: AudioStreamPlayer2D = $"../../Audio/AudioStreamPlayer2D"
 @onready var hit_box: HitBox = $"../../Interactions/HitBox"
 
@@ -19,16 +17,18 @@ func _process(_delta: float) -> void:
 func enter()-> void:
 	actor.animation_component.set_current_state('attack')
 	actor.animation_component.update_animation()
-	attackFX_animation_player.play("attack_" + actor.movement_component.get_animation_direction_name())
+	attack_fx_animation_player.play("attack_" + actor.movement_component.get_animation_direction_name())
 	is_attacking = true
-	anim_finished.connect(_on_attack_finished)
+	if not actor.animation_player.animation_finished.is_connected(_on_attack_finished):
+		actor.animation_player.animation_finished.connect(_on_attack_finished)
 	if attack_audio:
 		audio_stream_player.stream = attack_audio
 		audio_stream_player.pitch_scale = randf_range(0.8,1.2)
 		audio_stream_player.play()
 	
 	await get_tree().create_timer(0.05).timeout
-	hit_box.monitoring = true
+	if is_attacking:
+		hit_box.monitoring = true
 
 	pass
 #what happens during the _process update in this State?
@@ -37,9 +37,10 @@ func process(_delta: float)-> State:
 	return null
 #what happens when the actor exit this State?
 func exit()-> void:
-	if anim_finished.is_connected(_on_attack_finished):
+	if actor.animation_player.animation_finished.is_connected(_on_attack_finished):
 		actor.animation_player.animation_finished.disconnect(_on_attack_finished)
 	hit_box.monitoring = false
+	is_attacking = false
 	print('hitbox disable')
 	pass
 

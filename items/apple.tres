@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://35ur3w85qg60"]
+
+[ext_resource type="Script" uid="uid://lxs0wlwae6xy" path="res://items/item_effects/item_effect.gd" id="1_xmv7l"]
+[ext_resource type="Script" uid="uid://djtihyl6t1ejn" path="res://items/scripts/item_data.gd" id="2_5kqgm"]
+[ext_resource type="Script" uid="uid://bk1e3ae6ttbjc" path="res://items/item_effects/item_effect_heal.gd" id="3_ia5ia"]
+[ext_resource type="Texture2D" uid="uid://b2f4py0qv7ljv" path="res://items/sprites/items.png" id="3_rj1s8"]
+
+[sub_resource type="Resource" id="Resource_5kqgm"]
+script = ExtResource("3_ia5ia")
+audio_path = "uid://c1kqb68dney44"
+metadata/_custom_type_script = "uid://bk1e3ae6ttbjc"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbvxt"]
+atlas = ExtResource("3_rj1s8")
+region = Rect2(192, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_5kqgm")
+texture = SubResource("AtlasTexture_gbvxt")
+item_name = "apple"
+description = "heal heath little amout
+
+"
+effects = Array[ExtResource("1_xmv7l")]([SubResource("Resource_5kqgm")])
+metadata/_custom_type_script = "uid://djtihyl6t1ejn"

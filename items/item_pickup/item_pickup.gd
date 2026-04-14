@@ -1,18 +1,33 @@
 @tool
-class_name ItemPickup extends Node2D
+class_name ItemPickup extends CharacterBody2D
 @onready var area_2d: Area2D = $Area2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var movement_component: MovementComponent = $MovementComponent
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
-@export var item_data : ItemData :set = _set_item_data
+@export var item_data : Item :set = _set_item_data
 
+var pending_drop_speed:float  =0.
+var pending_drop_dir:Vector2 = Vector2.ZERO
+var pending_decelerate:float = 0.
+var play_drop_animation_on_ready: bool = false
 func _ready() -> void:
 	_update_texture()
 	if Engine.is_editor_hint():
 		return
 	area_2d.body_entered.connect(_on_body_entered)
+	if play_drop_animation_on_ready:
+		animation_player.play('drop_item')
+	movement_component.speed = pending_drop_speed
+	movement_component.set_direction(pending_drop_dir)
+	movement_component.decelerate = pending_decelerate
+
 	pass
-	
+func _physics_process(_delta: float) -> void:
+	#move_and_slide()
+	pass
 func _on_body_entered(_body:Node)->void:
 	if _body is Player:
 		var picked = _body.inventory_data.add_item(self.item_data)
@@ -27,7 +42,7 @@ func item_pick_up()->void:
 	self.queue_free()
 
 
-func _set_item_data(value: ItemData)-> void:
+func _set_item_data(value: Item)-> void:
 	item_data = value
 	_update_texture()
 

@@ -101,3 +101,4 @@ text = "a item description......................................................
 autowrap_mode = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1514687609]
+max_polyphony = 8

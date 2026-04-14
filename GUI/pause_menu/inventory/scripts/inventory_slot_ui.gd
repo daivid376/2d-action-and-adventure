@@ -1,6 +1,6 @@
 class_name InventorySlotUI extends Button
 
-var slot_data : SlotData: set = set_slot_data
+var slot_data : Slot: set = set_slot_data
 
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var label: Label = $Label
@@ -13,20 +13,24 @@ func _ready() -> void:
 	mouse_entered.connect(update_item_description_label)
 	mouse_exited.connect(clear_item_description_label)
 	pressed.connect(item_pressed)
+
 	
-func set_slot_data(value: SlotData)-> void:
-	slot_data = value
+func set_slot_data(value: Slot)-> void:
 	if slot_data:
-		if slot_data.quantity < 1:
-			slot_data = null
-		elif !slot_data.emptied.is_connected(_on_slot_emptied):
-			slot_data.emptied.connect(_on_slot_emptied)
+		if slot_data.slot_changed.is_connected(_refresh_ui):
+			slot_data.slot_changed.disconnect(_refresh_ui)
+	
+	slot_data = value
+	
+	if slot_data and not slot_data.slot_changed.is_connected(_refresh_ui):
+		slot_data.slot_changed.connect(_refresh_ui)
+
 	_refresh_ui()
 	pass
 
 func update_item_description_label()-> void:
 	var item_description = ''
-	if self.slot_data and self.slot_data.item_data:
+	if !self.slot_data.is_empty():
 		item_description =self.slot_data.item_data.description
 	else:
 		item_description = ''
@@ -37,23 +41,20 @@ func clear_item_description_label()-> void:
 
 func item_pressed() -> void:
 	print("pressed: ", self, " id=", get_instance_id(), " path=", get_path())
-	if self.slot_data and self.slot_data.item_data:
+	if !self.slot_data.is_empty():
 		var used : bool =  self.slot_data.item_data.use()
 		if used:
-			self.slot_data.quantity -= 1
-			_refresh_ui()
-	pass
+			self.slot_data.use_slot(1)
 
 func _refresh_ui()-> void:
-	if !slot_data:
+	if !slot_data or slot_data.is_empty():
 		texture_rect.texture = null
 		label.text = ''
 		return
-	if self.slot_data and self.slot_data.item_data:
+	if !self.slot_data.is_empty():
 		self.texture_rect.texture = slot_data.item_data.texture
 	self.label.text = str(slot_data.quantity)
 
-func _on_slot_emptied()->void:
-	print('_on_slot_emptied at inventory slot ui')
-	self.slot_data = null
+#func _on_slot_emptied()->void:
+	#self.slot_data.is_empty = true
 	#_refresh_ui()

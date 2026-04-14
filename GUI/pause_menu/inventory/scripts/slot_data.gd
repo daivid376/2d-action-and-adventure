@@ -1,9 +1,43 @@
-class_name SlotData extends Resource
-@export var item_data : ItemData
+class_name Slot extends Resource
+@export var item_data : Item
 @export var quantity : int : set = _set_quantity
-signal emptied()
 
+
+var index : int = -1
+signal slot_changed
+
+func set_item(new_item: Item,new_quantity: int):
+	self.item_data = new_item
+	self.quantity = max(new_quantity,0)
+	if self.is_empty():
+		self.clear()
+	slot_changed.emit()
+	
+
+func use_slot(count:int = 1)->void:
+	quantity -= count
+	slot_changed.emit()
+	
+func add_quantity(count:int = 1)->void:
+	quantity += count
+	slot_changed.emit()
+	
 func _set_quantity(value : int)->void:
-	quantity = value
-	if quantity < 1:
-		emptied.emit()
+	quantity = max(value,0)
+	if quantity == 0:
+		item_data = null
+#func _set_item_data(value: Item)->void:
+	#item_data = value
+	#slot_changed.emit()
+
+func is_empty()->bool:
+	return item_data == null or quantity == 0
+
+func clear()-> void:
+	item_data = null
+	quantity = 0
+	slot_changed.emit()
+	
+
+
+	

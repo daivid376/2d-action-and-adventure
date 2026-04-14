@@ -2,6 +2,7 @@ class_name MovementComponent extends Node
 
 const SAVE_FIELDS :Array = ['cardinal_direction']
 enum FacingDirection {UP,DOWN,RIGHT,LEFT}
+enum MoveMode {SLIDE,COLLIDE}
 var cardinal_direction: FacingDirection = FacingDirection.DOWN:
 	set(_v):
 		cardinal_direction = _v
@@ -10,17 +11,19 @@ signal direction_changed(new_dir : FacingDirection)
 var _direction : Vector2 = Vector2.ZERO
 var _speed :float = 0.0
 var _decelerate : float = 0.0
-@onready var parent : Actor = self.get_parent() as Actor
+@export var move_mode := MoveMode.SLIDE
+@export var can_bounce = false
+@onready var parent = self.get_parent() 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _ready() -> void:
-	print('parent.can_be_saved()',parent.can_be_saved())
-	if parent is Actor and parent.can_be_saved() :
+	if parent is Actor and parent.has_method('can_be_saved') and parent.can_be_saved() :
 		SaveManager.register_savable(self,self.parent.name + '.movement_component')
 		print(SaveManager.save_registry)
 
 func _physics_process(_delta: float) -> void:
-	if !parent:
+	var body := parent as CharacterBody2D
+	if !body:
 		return
 	var velocity = _direction * _speed
 	_speed =  max((abs(_speed) - _decelerate* _delta) ,0.) * sign(_speed)
@@ -28,9 +31,25 @@ func _physics_process(_delta: float) -> void:
 	# 	print('_decelerate: ', _decelerate)
 	# 	print('_speed: ', _speed)
 	# 	print('velocity: ', velocity)
-
-	parent.velocity = velocity
-	parent.move_and_slide()
+	
+	match move_mode:
+		MoveMode.SLIDE:
+			body.velocity = velocity
+			body.move_and_slide()
+		MoveMode.COLLIDE:
+			#body.velocity = velocity
+			var collision_info:KinematicCollision2D = body.move_and_collide(velocity * _delta)
+			if collision_info and can_bounce:
+				velocity = velocity.bounce(collision_info.get_normal())
+				speed = velocity.length()
+				set_direction(velocity.normalized())
+			
+	
+func _apply_bounce(velocity:Vector2, _delta: float)->void:
+	var collision_info:KinematicCollision2D = parent.	move_and_collide(velocity * _delta)
+	if collision_info and can_bounce:
+		velocity = velocity.bounce(collision_info.get_normal())
+		print('bounce velocity',velocity)
 
 func get_animation_direction_name() -> String:
 	var dir_name:String = FacingDirection.find_key(cardinal_direction).to_lower()

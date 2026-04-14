@@ -1,9 +1,11 @@
 class_name Actor extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var state_machine: StateMachine = self.get_node_or_null('StateMachine')
 @onready var movement_component : MovementComponent = self.get_node_or_null('MovementComponent')
 @onready var animation_component : AnimationComponent = self.get_node_or_null('AnimationComponent')
+@onready var loot_component : LootComponent = self.get_node_or_null('LootComponent')
 @onready var hurt_box : HurtBox = self.get_node_or_null('HurtBox')
 
 @export var max_hp: float = 6.:
@@ -23,6 +25,8 @@ signal died(hit_box : HitBox)
 signal hp_changed(current_hp:float,current_max_hp: float)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	SaveManager.game_loading.connect(_disable_collision)
+	SaveManager.game_loaded.connect(_enable_collision)
 	if state_machine:
 		state_machine.init(self)
 	if hurt_box:
@@ -36,6 +40,12 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func _disable_collision()->void:
+	collision_shape_2d.disabled = true
+
+func _enable_collision()->void:
+	await get_tree().process_frame
+	collision_shape_2d.set_deferred('disabled',false)
 
 func _take_damage(hit_box : HitBox) -> void:
 	if invulnerable:

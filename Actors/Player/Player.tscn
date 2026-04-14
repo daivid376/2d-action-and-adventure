@@ -654,7 +654,6 @@ script = ExtResource("7_o3h8g")
 
 [node name="Walk" type="Node" parent="StateMachine" unique_id=1960929484]
 script = ExtResource("8_1e7my")
-speed = null
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=2140417845]
 script = ExtResource("9_arntx")
@@ -678,7 +677,7 @@ position = Vector2(0, -22)
 script = ExtResource("6_52ee3")
 
 [node name="HitBox" parent="Interactions" unique_id=1663791989 instance=ExtResource("11_ksbbd")]
-position = Vector2(0, 17)
+position = Vector2(0, 22)
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/HitBox" unique_id=1702736711]

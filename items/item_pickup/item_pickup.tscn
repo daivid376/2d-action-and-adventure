@@ -2,10 +2,54 @@
 
 [ext_resource type="Script" uid="uid://bdo1k1okd0dy2" path="res://items/item_pickup/item_pickup.gd" id="1_0g51u"]
 [ext_resource type="AudioStream" uid="uid://c1kqb68dney44" path="res://items/item_pickup/item_pickup.wav" id="2_0rscd"]
+[ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Actors/Player/Sprites/Shadow.png" id="2_tc5ok"]
+[ext_resource type="Texture2D" uid="uid://b2f4py0qv7ljv" path="res://items/sprites/items.png" id="3_7rq5k"]
+[ext_resource type="Script" uid="uid://c8b4kphx2wmji" path="res://Components/Movement/MovementComponent.gd" id="5_7rq5k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0rscd"]
 
-[node name="ItemPickup" type="Node2D" unique_id=1844688070]
+[sub_resource type="AtlasTexture" id="AtlasTexture_puw1c"]
+atlas = ExtResource("3_7rq5k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Animation" id="Animation_tc5ok"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_bjvna"]
+resource_name = "drop_item"
+length = 1.1396354
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 0, 3, 0, 2, 0, 0, 0),
+"points": PackedFloat32Array(-10, -0.25003517, -0.011210431, 0.10369397, 0.0046491623, 0, -0.007980704, -4.411594, 0, 0, -8, -0.10303135, 0.061959885, 0.086153835, -0.051810265, 0, -0.032398432, -4.9514008, 0, 0, -4.60434, -0.076750785, 0.023137093, 0.076750785, -0.023137093, 0, -0.01350683, -2.869036, 0, 0, -2.3600135, -0.08021314, -2.6761174e-07, 0.07146287, 2.3841858e-07, 0, -0.03084588, -1.5964795, 0, 0, -1.0411808, -0.029873788, 0.02313745, 0.029873788, -0.02313745, 0, -0.015709758, -0.7403949, 0, 0),
+"times": PackedFloat32Array(0.0015459326, 0.12652722, 0.25234976, 0.37198702, 0.4945246, 0.60649043, 0.71353334, 0.8183866, 0.8890811, 0.9586122)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o0c3x"]
+_data = {
+&"RESET": SubResource("Animation_tc5ok"),
+&"drop_item": SubResource("Animation_bjvna")
+}
+
+[node name="ItemPickup" type="CharacterBody2D" unique_id=1838063723]
+collision_layer = 0
+collision_mask = 16
 script = ExtResource("1_0g51u")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=726605999]
@@ -13,7 +57,26 @@ script = ExtResource("1_0g51u")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1085114893]
 shape = SubResource("CircleShape2D_0rscd")
 
+[node name="Shadow_Sprite" type="Sprite2D" parent="." unique_id=765209257]
+self_modulate = Color(0.22, 0.22, 0.22, 0.75686276)
+position = Vector2(0, 6)
+scale = Vector2(0.61, 0.61)
+texture = ExtResource("2_tc5ok")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=490370456]
+texture = SubResource("AtlasTexture_puw1c")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1303990060]
 stream = ExtResource("2_0rscd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1208466721]
+libraries/ = SubResource("AnimationLibrary_o0c3x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1169138287]
+shape = SubResource("CircleShape2D_0rscd")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1032341415]
+script = ExtResource("5_7rq5k")
+move_mode = 1
+can_bounce = true
+metadata/_custom_type_script = "uid://c8b4kphx2wmji"

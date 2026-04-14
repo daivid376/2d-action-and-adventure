@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bnc5a3y3u8rrx" path="res://GUI/pause_menu/inventory/scripts/slot_data.gd" id="1_x61lb"]
 [ext_resource type="Script" uid="uid://deb4c2usotxrl" path="res://GUI/pause_menu/inventory/scripts/inventory_data.gd" id="2_1btyl"]
 [ext_resource type="Resource" uid="uid://dw1ini2k88qsd" path="res://items/potion.tres" id="3_1btyl"]
+[ext_resource type="Resource" uid="uid://35ur3w85qg60" path="res://items/apple.tres" id="4_6kbrr"]
 
 [sub_resource type="Resource" id="Resource_6kbrr"]
 script = ExtResource("1_x61lb")
@@ -10,7 +11,13 @@ item_data = ExtResource("3_1btyl")
 quantity = 5
 metadata/_custom_type_script = "uid://bnc5a3y3u8rrx"
 
+[sub_resource type="Resource" id="Resource_d33ra"]
+script = ExtResource("1_x61lb")
+item_data = ExtResource("4_6kbrr")
+quantity = 3
+metadata/_custom_type_script = "uid://bnc5a3y3u8rrx"
+
 [resource]
 script = ExtResource("2_1btyl")
-slot_data = Array[ExtResource("1_x61lb")]([null, null, SubResource("Resource_6kbrr"), null, null, null])
+slot_data = Array[ExtResource("1_x61lb")]([null, SubResource("Resource_6kbrr"), SubResource("Resource_d33ra"), null, null])
 metadata/_custom_type_script = "uid://deb4c2usotxrl"
