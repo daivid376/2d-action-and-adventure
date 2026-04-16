@@ -40,7 +40,7 @@ func _player_entered(_body: Node2D)-> void:
 	pass
 func get_offset()->Vector2:
 	var player_offset: Vector2
-	var player_pos: Vector2 = LevelManager.player.global_position
+	var player_pos: Vector2 = PlayerManager.player.global_position
 	var _offset :float = OFFSET_AMOUNT if side in [Side.LEFT,Side.TOP] else -OFFSET_AMOUNT
 	
 	#if side in [Side.LEFT,Side.RIGHT]:

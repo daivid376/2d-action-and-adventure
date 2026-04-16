@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://cvp4w7n16r8go" path="res://Components/State/base_stun_state.gd" id="15_mwq7b"]
 [ext_resource type="Script" uid="uid://bdr7igi1vkmmo" path="res://Actors/Player/Scripts/player_interactions_host.gd" id="16_gdu4f"]
 [ext_resource type="PackedScene" uid="uid://dp1nd4spnvn5h" path="res://GeneralNodes/HitBox/hit_box.tscn" id="17_oe074"]
+[ext_resource type="Script" uid="uid://bs7ndk08ykxeg" path="res://GeneralNodes/interaction_detector.gd" id="18_cwpch"]
 [ext_resource type="Script" uid="uid://sriovpdq8bma" path="res://Actors/Player/Scripts/player_camera.gd" id="18_e2kkj"]
 [ext_resource type="Script" uid="uid://duv6577brgwv2" path="res://GeneralNodes/HurtBox/hurt_box.gd" id="19_p2jnu"]
 
@@ -593,10 +594,14 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glx4g"]
-radius = 25.0
+radius = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cwpch"]
+size = Vector2(12, 23)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lslt6"]
-height = 38.0
+radius = 9.0
+height = 22.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1947446878]
 collision_mask = 16
@@ -673,7 +678,7 @@ metadata/_custom_type_script = "uid://7hvhram208n3"
 max_polyphony = 8
 
 [node name="Interactions" type="Node2D" parent="." unique_id=2130288108]
-position = Vector2(0, -22)
+position = Vector2(0, -18)
 script = ExtResource("16_gdu4f")
 
 [node name="HitBox" parent="Interactions" unique_id=1663791989 instance=ExtResource("17_oe074")]
@@ -681,9 +686,21 @@ position = Vector2(0, 22)
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/HitBox" unique_id=1702736711]
-position = Vector2(0, -5)
+position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_glx4g")
 debug_color = Color(0.9999998, 0.0023922427, 0.09469784, 0.41960785)
+
+[node name="InteractionDetector" type="Area2D" parent="Interactions" unique_id=1080987975]
+position = Vector2(0, 25)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("18_cwpch")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/InteractionDetector" unique_id=1400534385]
+position = Vector2(0, -14.5)
+shape = SubResource("RectangleShape2D_cwpch")
+debug_color = Color(0, 1, 0.16666651, 0.6039216)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=26713380]
 limit_smoothed = true
@@ -697,7 +714,6 @@ script = ExtResource("19_p2jnu")
 metadata/_custom_type_script = "uid://duv6577brgwv2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=2098353500]
-visible = false
-position = Vector2(0, -20)
+position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_lslt6")
 debug_color = Color(0.7690961, 0.4454159, 0.052952178, 0.41960785)

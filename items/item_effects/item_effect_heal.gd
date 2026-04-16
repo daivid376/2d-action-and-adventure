@@ -7,7 +7,7 @@ func _get_default_audio_path()-> String:
 	return DEFAULT_AUDIO_PATH
 
 func use()->void:
-	LevelManager.player.update_hp(heal_amount)
+	PlayerManager.player.update_hp(heal_amount)
 	
 	var stream = _get_audio()
 	if stream:

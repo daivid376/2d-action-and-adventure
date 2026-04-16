@@ -13,6 +13,7 @@ var pending_drop_speed:float  =0.
 var pending_drop_dir:Vector2 = Vector2.ZERO
 var pending_deceleration:float = 0.
 var play_drop_animation_on_ready: bool = false
+var rand_index:int = 0
 func _ready() -> void:
 	_update_texture()
 	if Engine.is_editor_hint():
@@ -20,6 +21,8 @@ func _ready() -> void:
 	area_2d.body_entered.connect(_on_body_entered)
 	if play_drop_animation_on_ready:
 		animation_player.play('drop_item')
+		var anim_speed_rand = GoldenSeq.rand_around(rand_index,1.2,0.15)
+		animation_player.speed_scale = anim_speed_rand
 		movement_component.speed = pending_drop_speed
 		movement_component.set_direction(pending_drop_dir)
 		movement_component.decelerate = pending_deceleration

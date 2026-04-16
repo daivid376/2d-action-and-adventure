@@ -1,13 +1,11 @@
 extends Node
-const PLAYER = preload("res://Actors/Player/player.tscn")
-var player: Player
+
 var current_tilemap_bounds: Array[ Vector2 ]
 signal tilemap_bounds_changed(bounds : Array[Vector2])
 signal level_load_started
 signal level_loaded
 
 func _ready() -> void:
-	spawn_player()
 	pass
 func change_tilemap_bounds(new_bounds: Array[Vector2]):
 	print('change_tilemap_bounds, in levelmanager')
@@ -15,22 +13,9 @@ func change_tilemap_bounds(new_bounds: Array[Vector2]):
 	print(new_bounds)
 	tilemap_bounds_changed.emit(new_bounds)
 	pass
-func spawn_player()->void:
-	player = PLAYER.instantiate() as Player
-	var current_scene = get_tree().current_scene
-	current_scene.add_child(player)
-	var spawn = get_tree().current_scene.get_node('%PlayerSpawn') as Marker2D
-	if spawn:
-		player.global_position = spawn.global_position
-	pass
 
-func set_player_parent(parent)-> void:
-	if player.get_parent() == parent:
-		return
-	parent.add_child(player)
-func unparent_player()->void:
-	var parent = player.get_parent()
-	parent.remove_child(player)
+
+
 	
 func load_new_level_by(level_transition_triggering: LevelTransition):
 	print('level_transition_triggering ',level_transition_triggering)
@@ -39,7 +24,7 @@ func load_new_level_by(level_transition_triggering: LevelTransition):
 	
 	await load_level(scene_path)
 	var target_transition_area: LevelTransition = get_tree().current_scene.get_node(target_transition_area_name) as LevelTransition
-	player.teleport(player.global_position + target_transition_area.get_offset())
+	PlayerManager.player.teleport(PlayerManager.player.global_position + target_transition_area.get_offset())
 	
 func load_level(scene_path)->void:
 	await SceneTransitionGui.fade_out()

@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://dw1ini2k88qsd" path="res://items/potion.tres" id="7_b60gt"]
 [ext_resource type="Resource" uid="uid://b2cpy4lwqrm5x" path="res://items/gem.tres" id="8_f2d14"]
 [ext_resource type="Resource" uid="uid://35ur3w85qg60" path="res://items/apple.tres" id="9_b60gt"]
+[ext_resource type="PackedScene" uid="uid://dssw8wepixg55" path="res://interactables/treasure_chest/treasure_chest.tscn" id="10_f2d14"]
 
 [node name="01" type="Node2D" unique_id=2019430730]
 script = ExtResource("1_chooo")
@@ -48,3 +49,12 @@ item = ExtResource("9_b60gt")
 [node name="ItemPickup4" parent="." unique_id=820956037 instance=ExtResource("5_pwydo")]
 position = Vector2(387, 103)
 item = ExtResource("6_th3kk")
+
+[node name="TheasureChest" parent="." unique_id=2063352027 instance=ExtResource("10_f2d14")]
+position = Vector2(302, 176)
+item = ExtResource("6_th3kk")
+
+[node name="TheasureChest2" parent="." unique_id=589701419 instance=ExtResource("10_f2d14")]
+position = Vector2(369, 176)
+item = ExtResource("9_b60gt")
+quantity = 5
