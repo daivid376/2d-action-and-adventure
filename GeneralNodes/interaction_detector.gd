@@ -5,6 +5,7 @@ var interactables_in_range :Array[Interactable] = []
 func _ready() -> void:
 	self.area_entered.connect(_on_area_entered)
 	self.area_exited.connect(_on_area_exited)
+	PlayerManager.interact_requested.connect(_on_interact_requested)
 	
 func _on_area_entered(area:Area2D)->void:
 	var interactable := area.get_parent() as Interactable
@@ -18,9 +19,6 @@ func _on_area_exited(area:Area2D)->void:
 		interactables_in_range.erase(interactable)
 		print('interactables_in_range exit',interactables_in_range)
 	
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed('interact'):
-		print('key interact pressed')
-		print('interactables_in_range',interactables_in_range)
-		for interactable in interactables_in_range:
-			interactable.interact()
+func _on_interact_requested()->void:
+	for interactable in interactables_in_range:
+		interactable.interact()

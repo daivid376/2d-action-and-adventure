@@ -3,7 +3,7 @@ extends Node
 const PLAYER = preload("res://Actors/Player/player.tscn") as PackedScene
 const INVENTORY = preload("res://GUI/pause_menu/inventory/player_inventory.tres") as Inventory
 
-signal interact_pressed
+signal interact_requested
 
 var player: Player
 var player_spawned : bool = false
@@ -11,7 +11,14 @@ var player_spawned : bool = false
 func _ready() -> void:
 	spawn_player()
 	pass
-	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed('interact'):
+		var current_state := player.state_machine.current_state
+		if current_state is StateWalk or current_state is StateIdle:
+			print(player.state_machine.current_state.get_script())
+			interact_requested.emit()
+	pass
 func add_player_instance() -> void:
 	player = PLAYER.instantiate()
 	add_child(player)
