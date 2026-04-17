@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 func set_camera_limit(new_bounds: Array[Vector2]) -> void:
 	#if !new_bounds:
 		#return
-	print('set camera limit', new_bounds)
+	#('set camera limit', new_bounds)
 	self.limit_left = int(new_bounds[0].x)
 	self.limit_top = int(new_bounds[0].y)
 	self.limit_right = int(new_bounds[1].x)

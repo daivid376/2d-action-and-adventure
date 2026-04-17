@@ -8,9 +8,7 @@ signal level_loaded
 func _ready() -> void:
 	pass
 func change_tilemap_bounds(new_bounds: Array[Vector2]):
-	print('change_tilemap_bounds, in levelmanager')
 	current_tilemap_bounds = new_bounds
-	print(new_bounds)
 	tilemap_bounds_changed.emit(new_bounds)
 	pass
 

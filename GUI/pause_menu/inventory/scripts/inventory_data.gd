@@ -25,7 +25,6 @@ func _rebuild_slots()-> void:
 			slots[i] = _create_slot()
 		slots[i].index = i
 	slots_rebuilt.emit()
-	print('rebuild slots')
 
 
 func _create_slot()-> Slot:
@@ -47,7 +46,6 @@ func _slot_to_save(slot: Slot)-> Dictionary:
 	return slot_save_payload
 	
 func from_save_data(saved_slots:Array):
-	print('from_save_data')
 	var data_size :int = saved_slots.size()
 	if slots.size() != data_size:
 		slots.resize(data_size)
@@ -56,10 +54,8 @@ func from_save_data(saved_slots:Array):
 		_apply_saved_slots(slots[i],saved_slots[i])
 
 func _apply_saved_slots(slot_to_set:Slot,saved_slots:Dictionary):
-	print('_apply_saved_slots')
 	var item_res_path : String = saved_slots['item_res_path']
 	if not item_res_path.is_empty():
-		print('when loading,saved data :', saved_slots)
 		var load_item := ResourceLoader.load(item_res_path) as Item
 		slot_to_set.set_item(load_item,saved_slots['quantity'])
 	else:

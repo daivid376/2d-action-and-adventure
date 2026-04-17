@@ -19,7 +19,6 @@ var _decelerate : float = 0.0
 func _ready() -> void:
 	if parent is Actor and parent.has_method('can_be_saved') and parent.can_be_saved() :
 		SaveManager.register_savable(self,self.parent.name + '.movement_component')
-		print(SaveManager.save_registry)
 
 func _physics_process(_delta: float) -> void:
 	var body := parent as CharacterBody2D

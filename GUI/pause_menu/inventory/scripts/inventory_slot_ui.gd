@@ -40,7 +40,6 @@ func clear_item_description_label()-> void:
 	PauseMenuGui.update_item_description('')
 
 func item_pressed() -> void:
-	print("pressed: ", self, " id=", get_instance_id(), " path=", get_path())
 	if !self.slot.is_empty():
 		var used : bool =  self.slot.item.use()
 		if used:

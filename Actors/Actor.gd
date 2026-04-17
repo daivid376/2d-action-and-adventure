@@ -48,15 +48,14 @@ func _enable_collision()->void:
 	await get_tree().process_frame
 	collision_shape_2d.set_deferred('disabled',false)
 
-func _take_damage(hit_box : HitBox) -> void:
+func _take_damage(in_hit_box : HitBox) -> void:
 	if invulnerable:
 		return
-	update_hp(-hit_box.damage)
-	print(hp)
+	update_hp(-in_hit_box.damage)
 	if hp > 0.:
-		damaged.emit(hit_box)
+		damaged.emit(in_hit_box)
 	else:
-		died.emit(hit_box)
+		died.emit(in_hit_box)
 	return
 func update_hp(delta: float)-> void:
 	hp = clamp(hp + delta,0.0,max_hp)

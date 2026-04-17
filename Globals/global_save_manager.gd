@@ -51,28 +51,20 @@ func _load_saved_level(save_data : Dictionary)->void:
 		print('save manager/load saved level/saved_scene_path ',saved_scene_path)
 		await LevelManager.load_level(saved_scene_path)
 func _apply_objects_saved_data(objects_saved_data : Dictionary)->void:
-	print('_apply_objects_saved_data')
 	var saved_objects : Dictionary = objects_saved_data.get('objects',{})
 	#for _obj in objects:
 	for save_id in save_registry.keys():
-		print('save_registry: ', save_registry)
-		print('save_id: ', save_id)
 		if not saved_objects.has(save_id):
-			print('no saved data for save_id: ', save_id)
 			continue
 		var _obj : Object = save_registry.get(save_id)
-		print('_obj: ', _obj)
 		var object_saved_data = saved_objects.get(save_id)
 		if _obj:
 			apply_object_saved_data(_obj,object_saved_data)
-			print('object_saved_data: ', object_saved_data)
-			print('_obj: ', _obj)
 		
 func build_object_save_data(_obj:Object):
 	var object_save_payload := {}
 	if 'SAVE_FIELDS' not in _obj:
 		if _obj.has_method('to_save_data'):
-			print('this obj: ',_obj)
 			return _obj.to_save_data()
 		return object_save_payload
 	var fields: Array = _obj.SAVE_FIELDS

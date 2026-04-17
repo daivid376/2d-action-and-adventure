@@ -68,7 +68,6 @@ func _update_area()->void:
 			new_rect.x *= size 
 			new_pos.y += new_rect.y *0.5
 			
-	print('update')
 	if !collision_shape:
 		collision_shape = self.get_node('CollisionShape2D')
 	collision_shape.shape.size = new_rect

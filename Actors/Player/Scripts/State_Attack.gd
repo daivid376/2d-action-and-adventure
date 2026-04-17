@@ -30,7 +30,6 @@ func enter()-> void:
 	if is_attacking:
 		hit_box.monitoring = true
 
-	pass
 #what happens during the _process update in this State?
 func process(_delta: float)-> State:
 
@@ -41,8 +40,6 @@ func exit()-> void:
 		actor.animation_player.animation_finished.disconnect(_on_attack_finished)
 	hit_box.monitoring = false
 	is_attacking = false
-	print('hitbox disable')
-	pass
 
 #what happens during the _physics_process update in this State?
 func physics_process(_delta: float)-> State:

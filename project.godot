@@ -21,8 +21,9 @@ PlayerHud="*uid://doqynmpbetcbd"
 PlayerManager="*uid://begd5hel6g38p"
 LevelManager="*uid://cn2m23c4rgyh"
 SceneTransitionGui="*uid://db7km50ek7qg8"
-SaveManager="*uid://bl0xjw020hlsy"
 PauseMenuGui="*uid://c0e5rgihlrqs0"
+WorldState="*uid://bpdqnlrcxvlf4"
+SaveManager="*uid://bl0xjw020hlsy"
 
 [display]
 

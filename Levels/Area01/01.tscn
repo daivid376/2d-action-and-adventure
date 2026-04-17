@@ -53,8 +53,10 @@ item = ExtResource("6_th3kk")
 [node name="TheasureChest" parent="." unique_id=2063352027 instance=ExtResource("10_f2d14")]
 position = Vector2(302, 176)
 item = ExtResource("6_th3kk")
+persistent_id = "chest_001"
 
 [node name="TheasureChest2" parent="." unique_id=589701419 instance=ExtResource("10_f2d14")]
 position = Vector2(369, 176)
 item = ExtResource("9_b60gt")
 quantity = 5
+persistent_id = "chest_002"

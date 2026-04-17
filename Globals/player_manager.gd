@@ -16,7 +16,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed('interact'):
 		var current_state := player.state_machine.current_state
 		if current_state is StateWalk or current_state is StateIdle:
-			print(player.state_machine.current_state.get_script())
 			interact_requested.emit()
 	pass
 func add_player_instance() -> void:

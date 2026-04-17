@@ -28,8 +28,7 @@ func _create_loot_pickup(loot_entry : LootEntry, rand_seed :int):
 	item_pickup.item = loot_entry.item
 	var parent : Actor = self.get_parent() as Actor
 	item_pickup.global_position = parent.global_position
-	var hash_seed :int = MathUtils.hash_u32(rand_seed)
-	print('hash_seed',hash_seed)
+	#var hash_seed :int = MathUtils.hash_u32(rand_seed)
 	item_pickup.pending_drop_speed = parent.movement_component.speed * 0.34 * randf_range(0.75,1.25)
 	var pending_drop_dir:Vector2 = parent.movement_component.get_direction()
 	pending_drop_dir = pending_drop_dir.rotated(GoldenSeq.get_rand_angle(15.,rand_seed, 0.376)) 

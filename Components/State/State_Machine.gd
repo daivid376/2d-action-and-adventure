@@ -41,7 +41,5 @@ func change_state(new_state: State) -> void:
 	current_state = new_state
 	current_state.enter()
 	state_changed.emit(current_state)
-	# if self.get_parent().name == 'Player':
-	# 	print(current_state)
-	# 	print('----')
+	
 	
