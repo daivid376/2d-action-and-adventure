@@ -27,16 +27,15 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	item_sprite.visible = false
-	apply_persistent_state()
-	
+	#restore_persistent_states()
+	print('states : ',states)
 	pass
 
 func interact()->void:
 	if chest_state != ChestState.CLOSED:
 		return
 	chest_state = ChestState.OPENED
-	#state_changed.emit()
-	capture_persistent_state()
+	capture_persistent_states()
 	if quantity > 0 and item:
 		PlayerManager.INVENTORY.add_item(item,quantity)
 		item_sprite.visible = true
@@ -45,14 +44,14 @@ func interact()->void:
 	else:
 		push_error('chest empty')
 	
-func apply_persistent_state() -> void:
-	var stored_state : Dictionary = WorldState.get_object_state(persistent_id)
-	print('stored_state ',stored_state)
-	if 'chest_state' in stored_state:
-		_set_chest_state(stored_state['chest_state'])
+#func apply_persistent_state() -> void:
+	#var stored_state : Dictionary = WorldState.get_object_state(persistent_id)
+	#print('stored_state ',stored_state)
+	#if 'chest_state' in stored_state:
+		#_set_chest_state(stored_state['chest_state'])
 
-func capture_persistent_state() -> void:
-	WorldState.set_object_state(persistent_id,{'chest_state':chest_state})
+#func capture_persistent_state() -> void:
+	#WorldState.set_object_state(persistent_id,{'chest_state':chest_state})
 
 func _set_item(value : Item)-> void:
 	print("set_item, value=", value, " ready=", is_node_ready(), " item_sprite=", item_sprite)
@@ -76,6 +75,7 @@ func _update_label()->void:
 		self.label.text =  ''
 func _set_chest_state(value : ChestState)->void:
 	chest_state = value
+	states['chest_state'] = value
 	if !sprite_2d:
 		return
 	_update_chest_state()

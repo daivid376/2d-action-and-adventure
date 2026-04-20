@@ -39,9 +39,9 @@ func load_game()-> void:
 	if save_registry.is_empty() or loaded_save_data.is_empty():
 		return
 	game_loading.emit()
-	await self._load_saved_level(loaded_save_data)
 	print('ready to apply saved data')
 	self._apply_objects_saved_data(loaded_save_data)
+	await self._load_saved_level(loaded_save_data)
 	game_loaded.emit()
 	
 func _load_saved_level(save_data : Dictionary)->void:
@@ -82,7 +82,7 @@ func apply_object_saved_data(_obj:Object,object_saved_data)-> void:
 		push_error('Expected Dictionary save data for object with SAVE_FIELDS:%s' %str(_obj))
 		return
 	for field in _obj.SAVE_FIELDS:
-		if object_saved_data.has(field):
+		if object_saved_data.has(field) and field in _obj:
 			var _v = object_saved_data[field]
 			print('field: ',field)
 			print('value: ', _v)

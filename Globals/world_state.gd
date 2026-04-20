@@ -6,10 +6,10 @@ const SAVE_FIELDS := ['object_states']
 func _ready() -> void:
 	SaveManager.register_savable(self,'object_states')
 	SaveManager.game_loading.connect(_on_game_loading)
-func set_object_state(persistent_id:String, state : Dictionary)->void:
-	object_states[persistent_id] = state
+func set_object_states(persistent_id:String, states : Dictionary)->void:
+	object_states[persistent_id] = states
 
-func get_object_state(persistent_id:String)-> Dictionary:
+func get_object_states(persistent_id:String)-> Dictionary:
 	#if object_states.has(persistent_id):
 	if !object_states:
 		return {}
