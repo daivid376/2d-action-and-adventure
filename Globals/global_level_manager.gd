@@ -12,17 +12,14 @@ func change_tilemap_bounds(new_bounds: Array[Vector2]):
 	tilemap_bounds_changed.emit(new_bounds)
 	pass
 
-
-
 	
-func load_new_level_by(level_transition_triggering: LevelTransition):
-	print('level_transition_triggering ',level_transition_triggering)
+func load_new_level_by(level_transition_triggering: LevelTransition)-> void:
 	var scene_path : String = level_transition_triggering.level_to_load
+	var level_transition_triggering_position := level_transition_triggering.position
 	var target_transition_area_name : String = level_transition_triggering.target_transition_area
-	
 	await load_level(scene_path)
 	var target_transition_area: LevelTransition = get_tree().current_scene.get_node(target_transition_area_name) as LevelTransition
-	PlayerManager.player.teleport(PlayerManager.player.global_position + target_transition_area.get_offset())
+	PlayerManager.player.teleport(PlayerManager.player.global_position + 	target_transition_area.get_offset(level_transition_triggering_position))
 	
 func load_level(scene_path)->void:
 	await SceneTransitionGui.fade_out()

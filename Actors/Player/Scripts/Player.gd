@@ -19,6 +19,7 @@ func teleport(target_pos: Vector2)->void:
 	self.global_position = target_pos
 	self.camera.reset_smoothing()
 	self.camera.position_smoothing_enabled = true
+	PlayerManager.player_teleported.emit()
 
 func _on_game_loaded()->void:
 	self.camera.position_smoothing_enabled = false

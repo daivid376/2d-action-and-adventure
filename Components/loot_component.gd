@@ -6,13 +6,13 @@ static var ITEM_PICKUP:PackedScene = null
 static func _load_item_pickup()-> void:
 	if ITEM_PICKUP == null:
 		ITEM_PICKUP = load("res://items/item_pickup/item_pickup.tscn")
-func test():
-	var t_rng: RandomNumberGenerator = RandomNumberGenerator.new()
-	var seed = hash('wertwe')
-	t_rng.seed = seed
-	var random = t_rng.randi()
-	t_rng.randomize()
-	randomize()
+#func test():
+	#var t_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	#var seed = hash('wertwe')
+	#t_rng.seed = seed
+	#var random = t_rng.randi()
+	#t_rng.randomize()
+	#randomize()
 func drop()->void:
 	_load_item_pickup()
 	for loot_entry in loot_entries:

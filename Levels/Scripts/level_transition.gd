@@ -19,8 +19,9 @@ enum Side {LEFT,RIGHT,TOP,BOTTOM}
 	set(_v):
 		_snap_to_grid()
 
-const OFFSET_AMOUNT: float = 20.
+const OFFSET_AMOUNT: float = 30.
 var can_trigger : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_area()
@@ -31,16 +32,25 @@ func _ready() -> void:
 	
 	body_entered.connect(_player_entered)
 	#wait physics frame process over, ignore that signal even overlaped, then set trigger true
-	await get_tree().physics_frame
+	await get_tree().process_frame
+	#await get_tree().process_frame
+	#self.set_deferred('can_trigger',true)
 	can_trigger = true
+	#self.monitoring = true
+	#PlayerManager.player_teleported.connect(_on_player_teleported)
+	
+func _exit_tree() -> void:
+	if PlayerManager.player_teleported.is_connected(_on_player_teleported):
+		PlayerManager.player_teleported.disconnect(_on_player_teleported)
 
+func _on_player_teleported()->void:
+	can_trigger = true
 func _player_entered(_body: Node2D)-> void:
 	if _body is Player and can_trigger:
 		LevelManager.load_new_level_by(self)
 	pass
-func get_offset()->Vector2:
-	var player_offset: Vector2
-	var player_pos: Vector2 = PlayerManager.player.global_position
+func get_offset(from_level_transition_position:Vector2)->Vector2:
+	var player_offset: Vector2 = Vector2.ZERO
 	var _offset :float = OFFSET_AMOUNT if side in [Side.LEFT,Side.TOP] else -OFFSET_AMOUNT
 	
 	#if side in [Side.LEFT,Side.RIGHT]:
@@ -48,8 +58,9 @@ func get_offset()->Vector2:
 	#else:
 		#player_offset.y = self.global_position.y - player_pos.y + _offset
 	var _channel :int = 0 if side in [Side.LEFT,Side.RIGHT] else 1
-	player_offset[_channel] = self.global_position[_channel] - player_pos[_channel] + _offset
-	return player_offset
+	player_offset[_channel] = _offset
+	var result := self.position - from_level_transition_position + player_offset
+	return result
 	
 func _update_area()->void:
 	var new_rect: Vector2 = Vector2(32,32)

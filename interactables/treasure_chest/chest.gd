@@ -28,8 +28,6 @@ func _ready() -> void:
 		return
 	item_sprite.visible = false
 	#restore_persistent_states()
-	print('states : ',states)
-	pass
 
 func interact()->void:
 	if chest_state != ChestState.CLOSED:
@@ -54,7 +52,7 @@ func interact()->void:
 	#WorldState.set_object_state(persistent_id,{'chest_state':chest_state})
 
 func _set_item(value : Item)-> void:
-	print("set_item, value=", value, " ready=", is_node_ready(), " item_sprite=", item_sprite)
+
 	item = value
 	_update_texture()
 	
