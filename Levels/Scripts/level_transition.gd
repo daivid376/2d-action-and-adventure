@@ -20,35 +20,19 @@ enum Side {LEFT,RIGHT,TOP,BOTTOM}
 		_snap_to_grid()
 
 const OFFSET_AMOUNT: float = 30.
-var can_trigger : bool = false
+#var can_trigger : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_area()
 	if Engine.is_editor_hint():
 		return
-	
-	#monitoring = false
-	
 	body_entered.connect(_player_entered)
-	#wait physics frame process over, ignore that signal even overlaped, then set trigger true
-	await get_tree().process_frame
-	#await get_tree().process_frame
-	#self.set_deferred('can_trigger',true)
-	can_trigger = true
-	#self.monitoring = true
-	#PlayerManager.player_teleported.connect(_on_player_teleported)
-	
-func _exit_tree() -> void:
-	if PlayerManager.player_teleported.is_connected(_on_player_teleported):
-		PlayerManager.player_teleported.disconnect(_on_player_teleported)
 
-func _on_player_teleported()->void:
-	can_trigger = true
 func _player_entered(_body: Node2D)-> void:
-	if _body is Player and can_trigger:
+	if _body is Player:
 		LevelManager.load_new_level_by(self)
-	pass
+		
 func get_offset(from_level_transition_position:Vector2)->Vector2:
 	var player_offset: Vector2 = Vector2.ZERO
 	var _offset :float = OFFSET_AMOUNT if side in [Side.LEFT,Side.TOP] else -OFFSET_AMOUNT

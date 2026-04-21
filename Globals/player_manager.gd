@@ -4,7 +4,6 @@ const PLAYER = preload("res://Actors/Player/player.tscn") as PackedScene
 const INVENTORY = preload("res://GUI/pause_menu/inventory/player_inventory.tres") as Inventory
 
 signal interact_requested
-signal player_teleported
 var player: Player
 var player_spawned : bool = false
 

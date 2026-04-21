@@ -26,8 +26,8 @@ signal died(hit_box : HitBox)
 signal hp_changed(current_hp:float,current_max_hp: float)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SaveManager.game_loading.connect(_disable_collision)
-	SaveManager.game_loaded.connect(_enable_collision)
+	LevelManager.level_load_started.connect(_disable_collision)
+	LevelManager.level_loaded.connect(_enable_collision)
 	if state_machine:
 		state_machine.init(self)
 	if hurt_box:
