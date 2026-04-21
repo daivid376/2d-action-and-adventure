@@ -33,8 +33,10 @@ func _player_entered(_body: Node2D)-> void:
 	if _body is Player:
 		LevelManager.load_new_level_by(self)
 		
-func get_offset(from_level_transition_position:Vector2)->Vector2:
+func get_transition_target_position(from_level_transition_position : Vector2, from_level_transition_size : int)->Vector2:
 	var player_offset: Vector2 = Vector2.ZERO
+	var player_pos : Vector2 = PlayerManager.player.global_position
+	var scale_ratio : float = float(self.size) / float(from_level_transition_size)
 	var _offset :float = OFFSET_AMOUNT if side in [Side.LEFT,Side.TOP] else -OFFSET_AMOUNT
 	
 	#if side in [Side.LEFT,Side.RIGHT]:
@@ -43,7 +45,7 @@ func get_offset(from_level_transition_position:Vector2)->Vector2:
 		#player_offset.y = self.global_position.y - player_pos.y + _offset
 	var _channel :int = 0 if side in [Side.LEFT,Side.RIGHT] else 1
 	player_offset[_channel] = _offset
-	var result := self.position - from_level_transition_position + player_offset
+	var result := (player_pos - from_level_transition_position) * scale_ratio + self.global_position + player_offset
 	return result
 	
 func _update_area()->void:

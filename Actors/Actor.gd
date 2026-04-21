@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func _disable_collision()->void:
-	collision_shape_2d.disabled = true
+	collision_shape_2d.set_deferred('disabled',true)
 
 func _enable_collision()->void:
 	await get_tree().process_frame
