@@ -26,6 +26,7 @@ signal died(hit_box : HitBox)
 signal hp_changed(current_hp:float,current_max_hp: float)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	LevelManager.level_load_started.connect(_disable_collision)
 	LevelManager.level_loaded.connect(_enable_collision)
 	if state_machine:

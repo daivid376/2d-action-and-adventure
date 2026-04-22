@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://bs7ndk08ykxeg" path="res://GeneralNodes/interaction_detector.gd" id="18_cwpch"]
 [ext_resource type="Script" uid="uid://sriovpdq8bma" path="res://Actors/Player/Scripts/player_camera.gd" id="18_e2kkj"]
 [ext_resource type="Script" uid="uid://duv6577brgwv2" path="res://GeneralNodes/HurtBox/hurt_box.gd" id="19_p2jnu"]
+[ext_resource type="Script" uid="uid://b0h34l3bmjus" path="res://GeneralNodes/push_detector.gd" id="19_slsra"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
 atlas = ExtResource("3_slsra")
@@ -260,7 +261,7 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1e7my"]
 radius = 6.25
-height = 17.5
+height = 13.5
 
 [sub_resource type="Animation" id="Animation_kyqiw"]
 length = 0.001
@@ -603,6 +604,13 @@ size = Vector2(12, 23)
 radius = 9.0
 height = 22.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slsra"]
+size = Vector2(14, 6)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slsra"]
+radius = 4.0
+height = 15.5
+
 [node name="Player" type="CharacterBody2D" unique_id=1947446878]
 collision_mask = 16
 script = ExtResource("1_bsr8u")
@@ -637,7 +645,7 @@ position = Vector2(0, 22)
 texture = ExtResource("6_nsew1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=994454839]
-position = Vector2(-0.25, -5.25)
+position = Vector2(0, -5)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_1e7my")
 
@@ -682,6 +690,7 @@ position = Vector2(0, -18)
 script = ExtResource("16_gdu4f")
 
 [node name="HitBox" parent="Interactions" unique_id=1663791989 instance=ExtResource("17_oe074")]
+visible = false
 position = Vector2(0, 22)
 monitoring = false
 
@@ -691,6 +700,7 @@ shape = SubResource("CircleShape2D_glx4g")
 debug_color = Color(0.9999998, 0.0023922427, 0.09469784, 0.41960785)
 
 [node name="InteractionDetector" type="Area2D" parent="Interactions" unique_id=1080987975]
+visible = false
 position = Vector2(0, 25)
 collision_layer = 0
 collision_mask = 4
@@ -714,6 +724,44 @@ script = ExtResource("19_p2jnu")
 metadata/_custom_type_script = "uid://duv6577brgwv2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=2098353500]
+visible = false
 position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_lslt6")
 debug_color = Color(0.7690961, 0.4454159, 0.052952178, 0.41960785)
+
+[node name="PlayerInteractionsHost" type="Node2D" parent="." unique_id=180290899]
+position = Vector2(0, -5)
+script = ExtResource("16_gdu4f")
+metadata/_custom_type_script = "uid://bdr7igi1vkmmo"
+
+[node name="PushDetector" type="Area2D" parent="PlayerInteractionsHost" unique_id=2050611661]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("19_slsra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerInteractionsHost/PushDetector" unique_id=379491882]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_slsra")
+disabled = true
+debug_color = Color(0.4666667, 0, 1, 0.6039216)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerInteractionsHost/PushDetector" unique_id=1665825892]
+rotation = 3.1415927
+shape = SubResource("CapsuleShape2D_slsra")
+debug_color = Color(0.6761397, 0.3040436, 1, 0.41960785)
+
+[node name="PushDetector" type="Area2D" parent="." unique_id=1065356038]
+collision_layer = 0
+collision_mask = 16
+monitoring = false
+monitorable = false
+script = ExtResource("19_slsra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushDetector" unique_id=85017617]
+visible = false
+position = Vector2(-0.25, -5.25)
+rotation = 3.1415927
+shape = SubResource("CapsuleShape2D_slsra")
+debug_color = Color(0.6761397, 0.3040436, 1, 0.41960785)

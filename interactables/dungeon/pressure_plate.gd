@@ -33,7 +33,7 @@ func update_active_state()->void:
 		audio_stream_player_2d.play()
 		activated.emit()
 		if target and target.has_method('activate'):
-			target.activate()
+			target.call_deferred('activate')
 	if interacting_body_count == 0 and is_active:
 		is_active = false
 		sprite_2d.frame = 41
@@ -41,6 +41,6 @@ func update_active_state()->void:
 		audio_stream_player_2d.play()
 		deactivated.emit()
 		if target and target.has_method('deactivate'):
-			target.deactivate()
+			target.call_deferred('deactivate')
 		
 		

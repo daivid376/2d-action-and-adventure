@@ -14,6 +14,8 @@ var _decelerate : float = 0.0
 @export var move_mode := MoveMode.SLIDE
 @export var can_bounce = false
 @onready var parent = self.get_parent() 
+var _debug_prev_touching_pushable := false
+var _debug_prev_floor_state := false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _ready() -> void:
@@ -35,6 +37,8 @@ func _physics_process(_delta: float) -> void:
 		MoveMode.SLIDE:
 			body.velocity = velocity
 			body.move_and_slide()
+			if parent is Player:
+				_debug_log_pushable_contact(body)
 		MoveMode.COLLIDE:
 			#body.velocity = velocity
 			var collision_info:KinematicCollision2D = body.move_and_collide(velocity * _delta)
@@ -93,4 +97,32 @@ func update_direction() -> bool:
 	else:
 		cardinal_direction = new_cardinal_dir
 		return true
+
+func _debug_log_pushable_contact(body: CharacterBody2D) -> void:
+	var touching_pushable := false
+	var normals: Array[Vector2] = []
+	var count := body.get_slide_collision_count()
+	for i in range(count):
+		var collision := body.get_slide_collision(i)
+		if collision and collision.get_collider() is Pushable_Statue:
+			touching_pushable = true
+			normals.append(collision.get_normal())
+
+	var on_floor_now := body.is_on_floor()
+	if touching_pushable != _debug_prev_touching_pushable or (touching_pushable and on_floor_now != _debug_prev_floor_state):
+		print(
+			"[PUSH_DEBUG] touching_pushable=",
+			touching_pushable,
+			" on_floor=",
+			on_floor_now,
+			" velocity=",
+			body.velocity,
+			" move_dir=",
+			_direction,
+			" normals=",
+			normals
+		)
+
+	_debug_prev_touching_pushable = touching_pushable
+	_debug_prev_floor_state = on_floor_now
 	
