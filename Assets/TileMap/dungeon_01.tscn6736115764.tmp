@@ -260,7 +260,7 @@ script = ExtResource("3_nb0cq")
 [node name="PlayerSpawn" parent="." unique_id=1685256339 instance=ExtResource("2_ouyvg")]
 unique_name_in_owner = true
 process_mode = 4
-position = Vector2(157, 164)
+position = Vector2(430, 245)
 
 [node name="LevelTransition" parent="." unique_id=1300526806 instance=ExtResource("3_aspwe")]
 unique_name_in_owner = true
@@ -269,10 +269,12 @@ level_to_load = "uid://cduleqwkxefn4"
 target_transition_area = "LevelTransition3"
 side = 3
 
-[node name="PressurePlate" parent="." unique_id=107450066 node_paths=PackedStringArray("target") instance=ExtResource("6_ibpe1")]
+[node name="PressurePlate" parent="." unique_id=107450066 instance=ExtResource("6_ibpe1")]
 z_index = -1
 position = Vector2(208, 160)
-target = NodePath("../BarredDoor")
 
 [node name="BarredDoor" parent="." unique_id=1011650559 instance=ExtResource("7_57axl")]
 position = Vector2(319, 49)
+
+[connection signal="actived" from="PressurePlate" to="BarredDoor" method="_on_open_door"]
+[connection signal="deactived" from="PressurePlate" to="BarredDoor" method="_on_close_door"]
