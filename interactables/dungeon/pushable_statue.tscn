@@ -3,9 +3,15 @@
 [ext_resource type="Script" uid="uid://y4n7b2swufm0" path="res://interactables/dungeon/pushable_statue.gd" id="1_3imyd"]
 [ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/dungeon_props.png" id="1_ddxrk"]
 [ext_resource type="AudioStream" uid="uid://dsteuebl4c58y" path="res://interactables/dungeon/push_stone.wav" id="2_3imyd"]
+[ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="4_febsh"]
+[ext_resource type="Script" uid="uid://ct5b3sb1r3kcn" path="res://GeneralNodes/persistent_property_binding.gd" id="5_fjkq3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pewve"]
 size = Vector2(30, 14)
+
+[sub_resource type="Resource" id="Resource_febsh"]
+script = ExtResource("5_fjkq3")
+metadata/_custom_type_script = "uid://ct5b3sb1r3kcn"
 
 [node name="PushableStatue" type="RigidBody2D" unique_id=712197424]
 collision_layer = 16
@@ -26,3 +32,8 @@ shape = SubResource("RectangleShape2D_pewve")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1692022768]
 stream = ExtResource("2_3imyd")
+
+[node name="PersistentComponent" type="Node" parent="." unique_id=1001405247]
+script = ExtResource("4_febsh")
+tracked_properties = Array[ExtResource("5_fjkq3")]([SubResource("Resource_febsh")])
+metadata/_custom_type_script = "uid://ddv8rognil1v7"

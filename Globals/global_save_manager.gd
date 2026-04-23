@@ -2,9 +2,10 @@ extends Node
 
 const SAVE_DIR = 'user://save/'
 
-signal game_loading
+signal game_start_loading
 signal game_loaded
 signal game_saved
+signal game_start_saving
 
 var save_registry:= {}
 var loaded_save_data:= {}
@@ -14,6 +15,7 @@ func _ready() -> void:
 
 func save_game()-> void:
 	print('save game')
+	game_start_saving.emit()
 	var save_file_data: Dictionary = {
 		'meta':{
 			'save_version' : 1,
@@ -21,13 +23,16 @@ func save_game()-> void:
 			'save_level' : get_tree().current_scene.scene_file_path
 		},
 		'objects':{},
+		'persistent_sections': {}
 	}
 	for save_id:String in save_registry.keys():
 		var _obj: Object = save_registry[save_id]
 		var data = build_object_save_data(_obj)
 		
 		save_file_data['objects'][save_id] = data
+	save_file_data['persistent_sections'] = build_persistent_section_save_data()
 	print('save data: ', save_file_data)
+	
 	#for test
 	#loaded_save_data = result
 	save_file(save_file_data)
@@ -38,9 +43,10 @@ func load_game()-> void:
 	loaded_save_data = load_file()
 	if save_registry.is_empty() or loaded_save_data.is_empty():
 		return
-	game_loading.emit()
+	game_start_loading.emit()
 	print('ready to apply saved data')
-	self._apply_objects_saved_data(loaded_save_data)
+	self.apply_objects_saved_data(loaded_save_data)
+	load_persistent_section_save_data(loaded_save_data)
 	await self._load_saved_level(loaded_save_data)
 	game_loaded.emit()
 	
@@ -50,7 +56,7 @@ func _load_saved_level(save_data : Dictionary)->void:
 	if not saved_scene_path.is_empty():
 		print('save manager/load saved level/saved_scene_path ',saved_scene_path)
 		await LevelManager.load_level(saved_scene_path)
-func _apply_objects_saved_data(objects_saved_data : Dictionary)->void:
+func apply_objects_saved_data(objects_saved_data : Dictionary)->void:
 	var saved_objects : Dictionary = objects_saved_data.get('objects',{})
 	#for _obj in objects:
 	for save_id in save_registry.keys():
@@ -92,6 +98,44 @@ func apply_object_saved_data(_obj:Object,object_saved_data)-> void:
 				##_obj.set('hp',3.3)
 				#print('deserialized_value: ', deserialized_value)
 				#print('hp value type: ',type_string(typeof(deserialize_value(_v))))
+
+func build_persistent_section_save_data()-> Dictionary:
+	var persistent_save_payload := {}
+	for section in WorldState.PERSISTENT_SECTIONS:
+		match section:
+			'object_states':
+				persistent_save_payload[section] = WorldState.object_states
+			'object_properties':
+				var serialized_object_properties := {}
+				for persistent_id in WorldState.object_properties:
+					var serialized_values :={}
+					var property_values : Dictionary = WorldState.object_properties[persistent_id]
+					for property_key in property_values:
+						var property_value = property_values[property_key]
+						serialized_values[property_key] =  serialize_value(property_value)
+					serialized_object_properties[persistent_id] = serialized_values
+				persistent_save_payload[section] = serialized_object_properties
+	print('[save manager][build_persistent_section_save_data] persistent_save_payload = ', persistent_save_payload)
+	return persistent_save_payload
+
+func load_persistent_section_save_data(loaded_save_data : Dictionary)->void:
+	var persistent_save_data = loaded_save_data['persistent_sections']
+	for section in persistent_save_data:
+		match section:
+			'object_states':
+				WorldState.object_states = persistent_save_data.get(section,{})
+			'object_properties':
+				var deserialized_object_properties := {}
+				var section_data : Dictionary = persistent_save_data[section]
+				for persistent_id in section_data:
+					var deserialized_values := {}
+					var property_values : Dictionary = section_data[persistent_id]
+					for property_key in property_values:
+						deserialized_values[property_key] = deserialize_value(property_values[property_key])
+					deserialized_object_properties[persistent_id] = deserialized_values
+				WorldState.object_properties = deserialized_object_properties	 
+
+
 func serialize_value(value):
 	if value is Vector2:
 		return {'__type': 'Vector2',

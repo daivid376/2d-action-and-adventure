@@ -17,10 +17,10 @@
 [ext_resource type="Script" uid="uid://cvp4w7n16r8go" path="res://Components/State/base_stun_state.gd" id="15_mwq7b"]
 [ext_resource type="Script" uid="uid://bdr7igi1vkmmo" path="res://Actors/Player/Scripts/player_interactions_host.gd" id="16_gdu4f"]
 [ext_resource type="PackedScene" uid="uid://dp1nd4spnvn5h" path="res://GeneralNodes/HitBox/hit_box.tscn" id="17_oe074"]
-[ext_resource type="Script" uid="uid://bs7ndk08ykxeg" path="res://GeneralNodes/interaction_detector.gd" id="18_cwpch"]
+[ext_resource type="Script" uid="uid://bs7ndk08ykxeg" path="res://GeneralNodes/detector/interaction_detector.gd" id="18_cwpch"]
 [ext_resource type="Script" uid="uid://sriovpdq8bma" path="res://Actors/Player/Scripts/player_camera.gd" id="18_e2kkj"]
 [ext_resource type="Script" uid="uid://duv6577brgwv2" path="res://GeneralNodes/HurtBox/hurt_box.gd" id="19_p2jnu"]
-[ext_resource type="Script" uid="uid://b0h34l3bmjus" path="res://GeneralNodes/push_detector.gd" id="19_slsra"]
+[ext_resource type="Script" uid="uid://b0h34l3bmjus" path="res://GeneralNodes/detector/push_detector.gd" id="19_slsra"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
 atlas = ExtResource("3_slsra")

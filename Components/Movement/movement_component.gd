@@ -37,8 +37,7 @@ func _physics_process(_delta: float) -> void:
 		MoveMode.SLIDE:
 			body.velocity = velocity
 			body.move_and_slide()
-			if parent is Player:
-				_debug_log_pushable_contact(body)
+			
 		MoveMode.COLLIDE:
 			#body.velocity = velocity
 			var collision_info:KinematicCollision2D = body.move_and_collide(velocity * _delta)
