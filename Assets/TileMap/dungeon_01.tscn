@@ -276,6 +276,9 @@ position = Vector2(320, 73)
 level_to_load = "uid://ce46brryuc0vl"
 side = 2
 
+[node name="PushableStatue" parent="." unique_id=712197424 instance=ExtResource("8_js4p3")]
+position = Vector2(279, 170)
+
 [node name="PressurePlate" parent="." unique_id=107450066 node_paths=PackedStringArray("target") instance=ExtResource("6_ibpe1")]
 z_index = -1
 position = Vector2(208, 160)
@@ -283,6 +286,3 @@ target = NodePath("../BarredDoor")
 
 [node name="BarredDoor" parent="." unique_id=1011650559 instance=ExtResource("7_57axl")]
 position = Vector2(319, 49)
-
-[node name="PushableStatue" parent="." unique_id=712197424 instance=ExtResource("8_js4p3")]
-position = Vector2(279, 170)

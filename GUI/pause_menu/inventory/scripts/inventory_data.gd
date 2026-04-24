@@ -4,7 +4,6 @@ class_name Inventory extends Resource
 signal slots_rebuilt
 
 func setup() -> void:
-	SaveManager.register_savable(self,'player_inventory')
 	_rebuild_slots()
 
 func add_item(item: Item,count : int = 1) -> bool:
@@ -31,7 +30,7 @@ func _create_slot()-> Slot:
 	var new_slot := Slot.new() as Slot
 	return new_slot
 	
-func to_save_data()-> Array:
+func to_persistent_data()-> Array:
 	var slots_to_save : Array =[]
 	for s in slots:
 		slots_to_save.append(_slot_to_save(s))
@@ -45,7 +44,7 @@ func _slot_to_save(slot: Slot)-> Dictionary:
 			slot_save_payload['item_res_path'] = slot.item.resource_path
 	return slot_save_payload
 	
-func from_save_data(saved_slots:Array):
+func from_persistent_data(saved_slots:Array):
 	var data_size :int = saved_slots.size()
 	if slots.size() != data_size:
 		slots.resize(data_size)

@@ -24,6 +24,7 @@ SceneTransitionGui="*uid://db7km50ek7qg8"
 PauseMenuGui="*uid://c0e5rgihlrqs0"
 WorldState="*uid://bpdqnlrcxvlf4"
 SaveManager="*uid://bl0xjw020hlsy"
+PersistentDataManager="*uid://cupi0hn4bhrvo"
 
 [display]
 

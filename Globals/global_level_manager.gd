@@ -26,9 +26,9 @@ func load_new_level_by(level_transition_triggering: LevelTransition)-> void:
 	level_transition_triggering_size))
 	
 func load_level(scene_path)->void:
+	level_load_started.emit()
 	await SceneTransitionGui.fade_out()
 	get_tree().paused = true
-	level_load_started.emit()
 	# wait previous level to be queue free
 	await get_tree().process_frame
 	get_tree().change_scene_to_file(scene_path)

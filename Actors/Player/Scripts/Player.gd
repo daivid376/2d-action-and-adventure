@@ -2,15 +2,13 @@ class_name Player extends Actor
 @onready var camera :Camera2D = self.get_node_or_null('Camera2D')
 var input_direction : Vector2 = Vector2.ZERO
 @export var inventory : Inventory
-const SAVE_FIELDS:Array = ['hp','max_hp','global_position']
-
+const PERSISTENT_FIELDS:Array = ['hp','max_hp','global_position']
 		
 func _ready():
 	super()
 	PlayerHud.update_hp_display(hp,max_hp)
 	self.hp_changed.connect(_on_hp_changed)
 	self.died.connect(_on_died)
-	SaveManager.register_savable(self,'player')
 	SaveManager.game_loaded.connect(_on_game_loaded)
 func can_be_saved()->bool:
 	return true

@@ -1,60 +1,63 @@
-@tool
 class_name PersistentComponent extends Node
-var persistent_id : String = ''
-var states := {} #{'chest_state' : ChestState.CLOSED}
-var persistent_field_values = {} #{'parent.global_position':Vector2}
-@export var tracked_properties : Array[PersistentPropertyBinding] : set = _set_tracked_properties
+@export var persistent_id : String = ''
+@export var is_unique : bool = false
+#var states := {} #{'chest_state' : ChestState.CLOSED}
+#@export var persistent_fields : Array[StringName] = []
+var parent : Node
+@export_node_path('Node') var persistent_target_node_path : NodePath = ^'..'
+@export var target_property := &''
+var host_node : Node
+var target_object : Object
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		#set_process(true)
-		#_rewrite_bindings()
-		return
-	#SaveManager.game_loaded.connect(_on_game_loaded)
-	SaveManager.game_start_saving.connect(capture_persistent_states)
-	_make_persistent_id()
-	restore_persistent_states()
 	pass
+		
+func _enter_tree() -> void:
+	host_node = get_node(persistent_target_node_path)
+	target_object  = _resolve_target_object()
+	parent = get_parent()
+	if persistent_id.is_empty():
+		_make_persistent_id()
+	PersistentDataManager.register_persistent_object(target_object,persistent_id)
+	PersistentDataManager.apply_persistent_data(persistent_id)
+
 func _exit_tree() -> void:
-	capture_persistent_states()
+	PersistentDataManager.capture_persistent_data(persistent_id)
+	PersistentDataManager.unregister_persistent_object(persistent_id)
 
 func _make_persistent_id()->String:
 	#'res://levels/area01/01.tscn/TheasureChest2'
 	var level_path = get_tree().current_scene.scene_file_path
-	persistent_id = level_path.path_join(get_parent().name)
+	var node_name : String= String(parent.name)
+	var relative_target_node_path :String = String(parent.get_path_to(host_node))
+	if host_node != parent:
+		node_name = node_name.path_join(relative_target_node_path)
+	if not target_property.is_empty():
+		node_name = node_name.path_join(String(target_property))
+		
+	persistent_id = level_path.path_join(node_name)
+	if is_unique:
+		persistent_id = node_name
 	return persistent_id
 
-func _set_tracked_properties(value)->void:
-	tracked_properties = value
-	for p in tracked_properties:
-		if p:
-			p.resolve_target(self)
+func _resolve_target_object() -> Object:
+	if target_property.is_empty():
+		return host_node
 
-func capture_persistent_states()-> void:
-	WorldState.set_object_states(persistent_id,states)
-	var property_values = {}
-	for property in tracked_properties:
-		var target_node = get_node(property.target_node_path)
-		var value = target_node.get_indexed(property.property_path)
-		var key = '%s|%s' % [str(property.target_node_path) ,property.property_path]
-		property_values[key] = value
-	WorldState.set_object_persistent_properties(persistent_id,property_values)
-	print('captured property_values for %s: %s' % [persistent_id, property_values])
+	if not (target_property in host_node):
+		push_error("PersistentComponent: property not found: %s" % target_property)
+		return null
+
+	var value = host_node.get(target_property)
+	if value == null:
+		push_error("PersistentComponent: property is null: %s" % target_property)
+		return null
+
+	if value is Object:
+		return value
+
+	push_error("PersistentComponent: property is not an Object: %s" % target_property)
+	return null
 		
-		
-func restore_persistent_states()-> void:
-	states = WorldState.get_object_states(persistent_id)
-	for state_name in states:
-		self.set(state_name,states[state_name])
-	var property_values :Dictionary =  WorldState.get_object_persistent_properties(persistent_id)
-	for property_name in property_values:
-		var target_node_path = property_name.split('|')[0]
-		var property_path = property_name.split('|')[1]
-		var target_node = get_node(NodePath(target_node_path))
-		print('...target_node...',target_node)
-		var value = property_values[property_name]
-		print('....restore value...',value)
-		target_node.set_indexed(NodePath(property_path),value)
-		
-func _on_game_loaded()->void:
-	print('on game loaded : ',self ,' object_persistent_properties=', WorldState.object_persistent_properties)
-	restore_persistent_states()
+#func _on_game_loaded()->void:
+	#print('on game loaded : ',self ,' object_persistent_properties=', WorldState.object_persistent_properties)
+	#restore_persistent_states()

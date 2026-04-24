@@ -7,9 +7,6 @@ func _ready() -> void:
 	LevelManager.tilemap_bounds_changed.connect(get_tilemap_bounds)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func get_tilemap_bounds() -> Array[Vector2]:
 	var bounds : Array[Vector2] = []

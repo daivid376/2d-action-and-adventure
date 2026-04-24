@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c8u4ul7h7y5xu" path="res://interactables/treasure_chest/chest.gd" id="1_xjfm2"]
 [ext_resource type="Texture2D" uid="uid://b2f4py0qv7ljv" path="res://items/sprites/items.png" id="2_rolan"]
 [ext_resource type="AudioStream" uid="uid://p527s4kw7827" path="res://interactables/treasure_chest/treasure_open.wav" id="4_wqj8h"]
+[ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="5_5t0pk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jpn1"]
 size = Vector2(30, 20)
@@ -173,3 +174,7 @@ libraries/ = SubResource("AnimationLibrary_5t0pk")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=459993573]
 stream = ExtResource("4_wqj8h")
+
+[node name="PersistentComponent" type="Node" parent="." unique_id=1481248808]
+script = ExtResource("5_5t0pk")
+metadata/_custom_type_script = "uid://ddv8rognil1v7"

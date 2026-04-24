@@ -33,7 +33,7 @@ func interact()->void:
 	if chest_state != ChestState.CLOSED:
 		return
 	chest_state = ChestState.OPENED
-	capture_persistent_states()
+	#capture_persistent_states()
 	if quantity > 0 and item:
 		PlayerManager.INVENTORY.add_item(item,quantity)
 		item_sprite.visible = true
@@ -78,6 +78,9 @@ func _set_chest_state(value : ChestState)->void:
 		return
 	_update_chest_state()
 	
+
+	
+
 func _update_chest_state()->void:
 	match chest_state:
 		ChestState.CLOSED:

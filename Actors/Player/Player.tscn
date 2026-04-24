@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://c8b4kphx2wmji" path="res://Components/Movement/movement_component.gd" id="8_a4xvd"]
 [ext_resource type="Script" uid="uid://b3lon2w5x28xm" path="res://Components/AnimationComponents/animation_component.gd" id="9_2smj8"]
 [ext_resource type="Script" uid="uid://cybaa3t7x2eho" path="res://Components/State/state_machine.gd" id="10_e2ks3"]
+[ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="10_gnrir"]
 [ext_resource type="Script" uid="uid://cmujeusu1xh02" path="res://Actors/Player/Scripts/state_idle.gd" id="11_4k5fm"]
 [ext_resource type="Script" uid="uid://c4bmqqqwqora" path="res://Actors/Player/Scripts/state_walk.gd" id="12_io41c"]
 [ext_resource type="Script" uid="uid://b41a6w4y0gpxf" path="res://Actors/Player/Scripts/state_attack.gd" id="13_47o75"]
@@ -658,6 +659,23 @@ script = ExtResource("8_a4xvd")
 
 [node name="AnimationComponent" type="Node" parent="." unique_id=707065927]
 script = ExtResource("9_2smj8")
+
+[node name="PersistentComponent_Player" type="Node" parent="." unique_id=889129183]
+script = ExtResource("10_gnrir")
+is_unique = true
+metadata/_custom_type_script = "uid://ddv8rognil1v7"
+
+[node name="PersistentComponent_MovmentComp" type="Node" parent="." unique_id=7321932]
+script = ExtResource("10_gnrir")
+is_unique = true
+persistent_target_node_path = NodePath("../MovementComponent")
+metadata/_custom_type_script = "uid://ddv8rognil1v7"
+
+[node name="PersistentComponent_Inventory" type="Node" parent="." unique_id=973360831]
+script = ExtResource("10_gnrir")
+is_unique = true
+target_property = &"inventory"
+metadata/_custom_type_script = "uid://ddv8rognil1v7"
 
 [node name="StateMachine" type="Node" parent="." unique_id=899219306]
 script = ExtResource("10_e2ks3")

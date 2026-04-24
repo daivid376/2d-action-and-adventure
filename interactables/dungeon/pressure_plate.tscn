@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/dungeon_props.png" id="1_kb1d5"]
 [ext_resource type="Script" uid="uid://brpguikif6ix0" path="res://interactables/dungeon/pressure_plate.gd" id="1_upfbp"]
+[ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="3_7ay0y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kb1d5"]
 
@@ -20,6 +21,16 @@ collision_mask = 273
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=956707059]
+visible = false
 shape = SubResource("RectangleShape2D_kb1d5")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2028066200]
+
+[node name="PersistentComponent" type="Node" parent="." unique_id=1021755760]
+script = ExtResource("3_7ay0y")
+metadata/_custom_type_script = "uid://ddv8rognil1v7"
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=936100689]
+shape = SubResource("RectangleShape2D_kb1d5")
+target_position = Vector2(0, 0)
+collision_mask = 16

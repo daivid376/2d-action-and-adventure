@@ -5,6 +5,7 @@ class_name Actor extends CharacterBody2D
 @onready var state_machine: StateMachine = self.get_node_or_null('StateMachine')
 @onready var movement_component : MovementComponent = self.get_node_or_null('MovementComponent')
 @onready var animation_component : AnimationComponent = self.get_node_or_null('AnimationComponent')
+@onready var persistent_component : PersistentComponent = self.get_node_or_null('PersistentComponent')
 @onready var loot_component : LootComponent = self.get_node_or_null('LootComponent')
 @onready var hurt_box : HurtBox = self.get_node_or_null('HurtBox')
 @onready var hit_box: HitBox = self.get_node_or_null('HitBox')

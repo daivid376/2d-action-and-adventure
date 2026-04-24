@@ -2,7 +2,7 @@ class_name InventoryUI extends Control
 const INVENTORY_SLOT_UI = preload("res://GUI/pause_menu/inventory/inventory_slot_ui.tscn")
 @export var inventory : Inventory
 
-#const SAVE_FIELDS:Array = ['inventory']
+#const PERSISTENT_FIELDS:Array = ['inventory']
 func _ready() -> void:
 	inventory.slots_rebuilt.connect(update_inventory_ui)
 	inventory.setup()
