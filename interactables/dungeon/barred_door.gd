@@ -2,7 +2,7 @@ class_name BarredDoor extends Node2D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
-var is_active : bool = false :set = _set_active
+var is_active : bool = false 
 
 func _ready() -> void:
 	_refresh_active_display()

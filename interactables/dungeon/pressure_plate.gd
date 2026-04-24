@@ -3,14 +3,13 @@ class_name PressurePlate extends Node2D
 @onready var area_2d: Area2D = $Area2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
-@onready var shape_cast_2d: ShapeCast2D = $ShapeCast2D
 const AUDIO_ACTIVE : AudioStream= preload("uid://ciuy68bgu2ayq")
 const AUDIO_DEACTIVE : AudioStream = preload("uid://mlbkija7helf")
 
 var interacting_body_count : int = 0
 signal activated
 signal deactivated
-var is_active :bool = false :set = _set_active
+var is_active :bool = false
 
 const PERSISTENT_FIELDS = ['is_active']
 @export var target : Node

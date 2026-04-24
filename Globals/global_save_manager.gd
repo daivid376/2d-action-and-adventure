@@ -6,8 +6,9 @@ signal game_start_loading
 signal game_loaded
 signal game_saved
 signal game_start_saving
-
+var is_game_loading := false
 var loaded_save_data:= {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -50,11 +51,13 @@ func serialize_persistent_snapshots()-> Dictionary:
 func load_game()-> void:
 	print('load game')
 	loaded_save_data = load_file()
+	is_game_loading = true
 	game_start_loading.emit()
 	print('ready to apply saved data')
-	await self._load_saved_level(loaded_save_data)
 	deserialize_saved_data(loaded_save_data)
+	await self._load_saved_level(loaded_save_data)
 	game_loaded.emit()
+	is_game_loading = false
 
 func deserialize_saved_data(saved_data : Dictionary):
 	var objects_data :Dictionary = saved_data['objects_data']

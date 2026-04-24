@@ -21,7 +21,8 @@ func _enter_tree() -> void:
 	PersistentDataManager.apply_persistent_data(persistent_id)
 
 func _exit_tree() -> void:
-	PersistentDataManager.capture_persistent_data(persistent_id)
+	if not SaveManager.is_game_loading:
+		PersistentDataManager.capture_persistent_data(persistent_id)
 	PersistentDataManager.unregister_persistent_object(persistent_id)
 
 func _make_persistent_id()->String:

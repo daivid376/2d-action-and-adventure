@@ -554,3 +554,4 @@ item = ExtResource("6_th3kk")
 position = Vector2(369, 176)
 item = ExtResource("9_b60gt")
 quantity = 5
+chest_state = 1

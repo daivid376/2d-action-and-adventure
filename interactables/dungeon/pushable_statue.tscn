@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://y4n7b2swufm0" path="res://interactables/dungeon/pushable_statue.gd" id="1_3imyd"]
 [ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/dungeon_props.png" id="1_ddxrk"]
 [ext_resource type="AudioStream" uid="uid://dsteuebl4c58y" path="res://interactables/dungeon/push_stone.wav" id="2_3imyd"]
+[ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Actors/Player/Sprites/shadow.png" id="2_febsh"]
 [ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="4_febsh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pewve"]
@@ -14,6 +15,12 @@ collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_3imyd")
 
+[node name="Sprite2D_Shadow" type="Sprite2D" parent="." unique_id=1881700354]
+modulate = Color(0.09, 0.09, 0.09, 0.7529412)
+position = Vector2(0, -4)
+scale = Vector2(1.1875, 1.125)
+texture = ExtResource("2_febsh")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1558631239]
 position = Vector2(-1, -22)
 texture = ExtResource("1_ddxrk")
@@ -22,6 +29,7 @@ vframes = 2
 frame = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1992270576]
+visible = false
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_pewve")
 
