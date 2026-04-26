@@ -11,7 +11,7 @@ signal activated
 signal deactivated
 var is_active :bool = false
 
-const PERSISTENT_FIELDS = ['is_active']
+const PERSISTENT_PROPERTIES = ['is_active']
 @export var target : Node
 func _ready() -> void:
 

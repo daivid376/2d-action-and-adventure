@@ -4,7 +4,7 @@ class_name Pushable_Statue extends RigidBody2D
 var push_direction : Vector2 = Vector2.ZERO : set = _set_push
 var speed :float = 30.
 var play_audio = false
-const PERSISTENT_FIELDS := ['global_position']
+const PERSISTENT_PROPERTIES := ['global_position']
 func _enter_tree() -> void:
 	#collision_shape_2d.set_deferred('disabled',true)
 	pass

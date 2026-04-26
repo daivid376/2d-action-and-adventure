@@ -42,14 +42,6 @@ func interact()->void:
 	else:
 		push_error('chest empty')
 	
-#func apply_persistent_state() -> void:
-	#var stored_state : Dictionary = WorldState.get_object_state(persistent_id)
-	#print('stored_state ',stored_state)
-	#if 'chest_state' in stored_state:
-		#_set_chest_state(stored_state['chest_state'])
-
-#func capture_persistent_state() -> void:
-	#WorldState.set_object_state(persistent_id,{'chest_state':chest_state})
 
 func _set_item(value : Item)-> void:
 
@@ -78,9 +70,6 @@ func _set_chest_state(value : ChestState)->void:
 		return
 	_update_chest_state()
 	
-
-	
-
 func _update_chest_state()->void:
 	match chest_state:
 		ChestState.CLOSED:

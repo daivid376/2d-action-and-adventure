@@ -34,7 +34,6 @@ func _ready() -> void:
 		state_machine.init(self)
 	if hurt_box:
 		hurt_box.damaged.connect(_take_damage)
-	hp = max_hp
 	
 	pass # Replace with function body.
 

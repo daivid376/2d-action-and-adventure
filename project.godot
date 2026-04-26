@@ -22,7 +22,6 @@ PlayerManager="*uid://begd5hel6g38p"
 LevelManager="*uid://cn2m23c4rgyh"
 SceneTransitionGui="*uid://db7km50ek7qg8"
 PauseMenuGui="*uid://c0e5rgihlrqs0"
-WorldState="*uid://bpdqnlrcxvlf4"
 SaveManager="*uid://bl0xjw020hlsy"
 PersistentDataManager="*uid://cupi0hn4bhrvo"
 
@@ -39,6 +38,10 @@ window/stretch/mode="viewport"
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
 
 [input]
 

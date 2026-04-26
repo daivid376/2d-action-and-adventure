@@ -2,7 +2,7 @@ class_name Player extends Actor
 @onready var camera :Camera2D = self.get_node_or_null('Camera2D')
 var input_direction : Vector2 = Vector2.ZERO
 @export var inventory : Inventory
-const PERSISTENT_FIELDS:Array = ['hp','max_hp','global_position']
+const PERSISTENT_PROPERTIES:Array = ['hp','max_hp','global_position']
 		
 func _ready():
 	super()

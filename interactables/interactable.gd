@@ -5,7 +5,7 @@ var can_interact :bool = true
 var persistent_id : String = ''
 var states := {} :set = _set_states  #{'chest_state' : ChestState.CLOSED}
 
-const PERSISTENT_FIELDS := ['states']
+const PERSISTENT_PROPERTIES := ['states']
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
@@ -30,8 +30,3 @@ func _set_states(value)->void:
 	print('interactable _set ', states)
 	for state in states:
 		self.set(state,states[state])
-
-func _on_game_loaded()->void:
-	print('on game loaded : ',self ,' stored persistent=', WorldState.object_states)
-	#restore_persistent_states()
-	pass

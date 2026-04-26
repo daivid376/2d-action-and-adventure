@@ -1,6 +1,6 @@
 class_name MovementComponent extends Node
 
-const PERSISTENT_FIELDS :Array = ['cardinal_direction']
+const PERSISTENT_PROPERTIES :Array = ['cardinal_direction']
 enum FacingDirection {UP,DOWN,RIGHT,LEFT}
 enum MoveMode {SLIDE,COLLIDE}
 var cardinal_direction: FacingDirection = FacingDirection.DOWN:
