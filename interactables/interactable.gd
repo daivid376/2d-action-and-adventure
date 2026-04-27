@@ -1,32 +1,30 @@
-@tool
 class_name Interactable extends Node
 var can_interact :bool = true
 
-var persistent_id : String = ''
-var states := {} :set = _set_states  #{'chest_state' : ChestState.CLOSED}
+var persistent_state_properties : Array[StringName] = [] #['cheset_state','door_state']
 
-const PERSISTENT_PROPERTIES := ['states']
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-	#SaveManager.game_loaded.connect(_on_game_loaded)
-	#_make_persistent_id()
-	#print('levelPath ',_make_persistent_id())
-	#restore_persistent_states()
-	pass
-
-func _make_persistent_id()->String:
-	#'res://levels/area01/01.tscn/TheasureChest2'
-	var level_path = get_tree().current_scene.scene_file_path
-	persistent_id = level_path.path_join(name)
-	return persistent_id
-
-
+#virtual
 func interact()->void:
 	pass
+#virtual
+func get_persistent_state_properties() -> Array[StringName]:
+	return []
+
+func to_persistent_data() -> Dictionary:
+	var data := {}
+	for property_name in get_persistent_state_properties():
+		if property_name in self:
+			data[property_name] = self.get(property_name)
+	print('to persistent data, ', data)
+	return data
+
+func from_persistent_data(data: Dictionary) -> void:
+	print('from_persistent_data ', data)
+	for property_name in get_persistent_state_properties():
+		print('property_name ',property_name)
+		if data.has(property_name):
+			print('set value ',data[property_name])
+			self.set(property_name,data[property_name])
 	
-func _set_states(value)->void:
-	states = value
-	print('interactable _set ', states)
-	for state in states:
-		self.set(state,states[state])
+	
+		

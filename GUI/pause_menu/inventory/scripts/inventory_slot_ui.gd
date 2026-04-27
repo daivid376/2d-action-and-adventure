@@ -41,9 +41,7 @@ func clear_item_description_label()-> void:
 
 func item_pressed() -> void:
 	if !self.slot.is_empty():
-		var used : bool =  self.slot.item.use()
-		if used:
-			self.slot.use_slot(1)
+		slot.use_slot(1)
 
 func _refresh_ui()-> void:
 	if !slot or slot.is_empty():

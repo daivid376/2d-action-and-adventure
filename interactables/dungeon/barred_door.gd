@@ -37,9 +37,7 @@ func _refresh_active_display()->void:
 	if is_active:
 		animation_player.play("door_open")
 		var anim_len := animation_player.current_animation_length
-		print('__refresh,animlen ',anim_len)
 		#animation_player.seek(0.49,true)
 		animation_player.call_deferred('seek',anim_len,true)
 	else:
-		print('__is active',is_active)
 		animation_player.play('RESET')

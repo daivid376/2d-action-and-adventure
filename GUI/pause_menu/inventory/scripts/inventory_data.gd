@@ -17,7 +17,28 @@ func add_item(item: Item,count : int = 1) -> bool:
 			s.set_item(item,count)
 			return true
 	return false
-
+	
+func use_item(item: Item, count : int = 1) -> bool:
+	if item:
+		for s in slots:
+			if s.item == item:
+				if s.use_slot(count):
+					return true
+	return false
+func consume_item(item : Item, count : int = 1) -> bool:
+	if item:
+		for s in slots:
+			if s.item == item:
+				if s.consume_quantity(count):
+					return true
+	return false
+func has_item(item: Item) -> bool:
+	if item:
+		for s in slots:
+			if s.item == item:
+				return true
+	return false
+	
 func _rebuild_slots()-> void:
 	for i in slots.size():
 		if slots[i] == null:

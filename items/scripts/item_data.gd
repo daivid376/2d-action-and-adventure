@@ -5,12 +5,13 @@ class_name Item extends Resource
 @export_category('Item Use Effect')
 @export var effects : Array[ItemEffect]
 
-func use()->bool:
+func use(count :int)->bool:
 	if effects.size() == 0:
 		return false
 	for e in effects:
 		if e:
-			e.use()
+			for i in count:
+				e.use()
 	return true
 
 func get_save_value()-> String:

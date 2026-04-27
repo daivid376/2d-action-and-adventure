@@ -261,8 +261,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1e7my"]
-radius = 6.25
-height = 13.5
+radius = 8.0
+height = 16.0
 
 [sub_resource type="Animation" id="Animation_kyqiw"]
 length = 0.001
@@ -609,8 +609,8 @@ height = 22.0
 size = Vector2(14, 6)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slsra"]
-radius = 4.0
-height = 15.5
+radius = 5.0
+height = 18.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1947446878]
 collision_mask = 16
@@ -646,7 +646,7 @@ position = Vector2(0, 22)
 texture = ExtResource("6_nsew1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=994454839]
-position = Vector2(0, -5)
+position = Vector2(0, -7)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_1e7my")
 
@@ -662,18 +662,15 @@ script = ExtResource("9_2smj8")
 
 [node name="PersistentComponent_Player" type="Node" parent="." unique_id=889129183]
 script = ExtResource("10_gnrir")
-is_unique = true
 metadata/_custom_type_script = "uid://ddv8rognil1v7"
 
 [node name="PersistentComponent_MovmentComp" type="Node" parent="." unique_id=7321932]
 script = ExtResource("10_gnrir")
-is_unique = true
 persistent_target_node_path = NodePath("../MovementComponent")
 metadata/_custom_type_script = "uid://ddv8rognil1v7"
 
 [node name="PersistentComponent_Inventory" type="Node" parent="." unique_id=973360831]
 script = ExtResource("10_gnrir")
-is_unique = true
 target_property = &"inventory"
 metadata/_custom_type_script = "uid://ddv8rognil1v7"
 
@@ -748,7 +745,7 @@ shape = SubResource("CapsuleShape2D_lslt6")
 debug_color = Color(0.7690961, 0.4454159, 0.052952178, 0.41960785)
 
 [node name="PlayerInteractionsHost" type="Node2D" parent="." unique_id=180290899]
-position = Vector2(0, -5)
+position = Vector2(0, -7)
 script = ExtResource("16_gdu4f")
 metadata/_custom_type_script = "uid://bdr7igi1vkmmo"
 
@@ -766,20 +763,6 @@ disabled = true
 debug_color = Color(0.4666667, 0, 1, 0.6039216)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerInteractionsHost/PushDetector" unique_id=1665825892]
-rotation = 3.1415927
-shape = SubResource("CapsuleShape2D_slsra")
-debug_color = Color(0.6761397, 0.3040436, 1, 0.41960785)
-
-[node name="PushDetector" type="Area2D" parent="." unique_id=1065356038]
-collision_layer = 0
-collision_mask = 16
-monitoring = false
-monitorable = false
-script = ExtResource("19_slsra")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PushDetector" unique_id=85017617]
-visible = false
-position = Vector2(-0.25, -5.25)
 rotation = 3.1415927
 shape = SubResource("CapsuleShape2D_slsra")
 debug_color = Color(0.6761397, 0.3040436, 1, 0.41960785)

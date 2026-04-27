@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://0tttynb75v8l"]
+
+[ext_resource type="Script" uid="uid://c12fl1c4y6wen" path="res://interactables/dungeon/locked_door.gd" id="1_n53nc"]
+[ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/dungeon_props.png" id="1_onbon"]
+[ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="3_xbbsa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onbon"]
+size = Vector2(64, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n53nc"]
+size = Vector2(28, 22)
+
+[node name="LockedDoor" type="Node2D" unique_id=255019014]
+script = ExtResource("1_n53nc")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=25979010]
+position = Vector2(32, -43)
+texture = ExtResource("1_onbon")
+hframes = 7
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=342436945]
+collision_layer = 16
+collision_mask = 0
+
+[node name="StaticCollision" type="CollisionShape2D" parent="StaticBody2D" unique_id=301589335]
+position = Vector2(32, -34)
+shape = SubResource("RectangleShape2D_onbon")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=816572376]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=939631352]
+position = Vector2(32, -23)
+shape = SubResource("RectangleShape2D_n53nc")
+debug_color = Color(0, 0.64235723, 0.32436472, 0.41960785)
+
+[node name="PersistentComponent" type="Node" parent="." unique_id=1479564059]
+script = ExtResource("3_xbbsa")
+metadata/_custom_type_script = "uid://ddv8rognil1v7"

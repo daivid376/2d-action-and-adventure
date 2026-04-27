@@ -5,6 +5,9 @@
 [ext_resource type="Script" uid="uid://bih2tbvx6tan8" path="res://Assets/TileMap/level_tile_map.gd" id="3_ioe2m"]
 [ext_resource type="PackedScene" uid="uid://dpcuoixknjkb4" path="res://Levels/player_spawn.tscn" id="4_ndo1o"]
 [ext_resource type="PackedScene" uid="uid://oaqbq40cwt6r" path="res://Levels/level_transition.tscn" id="5_0kswx"]
+[ext_resource type="PackedScene" uid="uid://0tttynb75v8l" path="res://interactables/dungeon/locked_door.tscn" id="6_g4vd2"]
+[ext_resource type="PackedScene" uid="uid://c8t1uvsi2cq1a" path="res://items/item_pickup/item_pickup.tscn" id="7_ye1px"]
+[ext_resource type="Resource" uid="uid://b7lo2f4hpkkwg" path="res://items/dungeon_key.tres" id="8_0bthr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ouyvg"]
 texture = ExtResource("2_cnnxl")
@@ -244,7 +247,7 @@ physics_layer_0/collision_layer = 16
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_ouyvg")
 
-[node name="Dungeon01" type="Node2D" unique_id=1818177330]
+[node name="Dungeon02" type="Node2D" unique_id=1818177330]
 y_sort_enabled = true
 script = ExtResource("1_ywixj")
 
@@ -266,3 +269,13 @@ position = Vector2(320, 320)
 level_to_load = "uid://cmpdm07lovfnt"
 target_transition_area = "LevelTransition2"
 side = 3
+
+[node name="LockedDoor" parent="." unique_id=255019014 instance=ExtResource("6_g4vd2")]
+position = Vector2(288, 91)
+key_item = ExtResource("8_0bthr")
+
+[node name="ItemPickup" parent="." unique_id=1838063723 instance=ExtResource("7_ye1px")]
+position = Vector2(261, 112)
+item = ExtResource("8_0bthr")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1703548481]

@@ -12,9 +12,16 @@ var loaded_save_data:= {}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
+func debug_log(message: String , data = null) -> void:
+	var debug_enable = false
+	if not debug_enable:
+		return
+	if not data:
+		data = ''
+	print('[SaveManager] ',message,' ',data)
 
 func save_game()-> void:
-	print('save game')
+	debug_log('save start')
 	game_save_started.emit()
 	var save_file_data: Dictionary = {
 		'meta':{
@@ -25,7 +32,7 @@ func save_game()-> void:
 		'persistent_snapshots':{},
 	}
 	save_file_data['persistent_snapshots'] = serialize_persistent_snapshots()
-	print('save data: ', save_file_data)
+	debug_log('serialized save data: ', save_file_data)
 	
 	#for test
 	#loaded_save_data = result
@@ -33,14 +40,14 @@ func save_game()-> void:
 		game_saved.emit()
 
 func load_game()-> void:
-	print('load game')
+	debug_log('load game')
 	loaded_save_data = load_save_file()
 	if loaded_save_data.is_empty():
 		return
 		
 	is_loading_game = true
 	game_load_started.emit()
-	print('ready to apply saved data')
+	debug_log('ready to apply saved data')
 	deserialize_snapshots_from_save_data(loaded_save_data)
 	await self._load_level_from_save_data(loaded_save_data)
 	is_loading_game = false
@@ -77,7 +84,7 @@ func deserialize_snapshots_from_save_data(saved_data : Dictionary):
 func _load_level_from_save_data(save_data : Dictionary)->void:
 	var saved_scene_path: String = save_data.get("meta", {}).get("save_level", "")
 	if not saved_scene_path.is_empty():
-		print('save manager/load saved level/saved_scene_path ',saved_scene_path)
+		debug_log('saved_scene_path',saved_scene_path)
 		await LevelManager.load_level(saved_scene_path)
 
 func serialize_value(value):

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="2D Action and Adventure"
-run/main_scene="uid://cmpdm07lovfnt"
+run/main_scene="uid://ce46brryuc0vl"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

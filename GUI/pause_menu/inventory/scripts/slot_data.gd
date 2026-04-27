@@ -14,13 +14,28 @@ func set_item(new_item: Item,new_quantity: int):
 	slot_changed.emit()
 	
 
-func use_slot(count:int = 1)->void:
-	quantity -= count
-	slot_changed.emit()
+func use_slot(count:int = 1)->bool:
+	if count > 0 and quantity >= count and item.use(count):
+		consume_quantity(count)
+		slot_changed.emit()
+		return true
+	return false
 	
 func add_quantity(count:int = 1)->void:
+	if count <= 0:
+		return
 	quantity += count
 	slot_changed.emit()
+
+func consume_quantity(count:int = 1)-> bool:
+	if count <= 0:
+		return false
+	elif count > quantity:
+		return false
+	else:
+		quantity -= count
+		slot_changed.emit()
+		return true
 	
 func _set_quantity(value : int)->void:
 	quantity = max(value,0)

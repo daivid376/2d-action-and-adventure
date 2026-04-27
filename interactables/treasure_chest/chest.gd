@@ -1,5 +1,5 @@
 @tool
-class_name Chest extends Interactable
+class_name Chest extends OpenableInteractable
 enum ChestState {CLOSED,OPENED}
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -12,28 +12,21 @@ enum ChestState {CLOSED,OPENED}
 
 @export var item : Item : set = _set_item
 @export var quantity : int  = 1 : set = _set_quantity
-@export var chest_state := ChestState.CLOSED : set = _set_chest_state
-#var persistent_states:= ['chest_state']
-#signal state_changed()
 #const INVENTORY := preload("res://GUI/pause_menu/inventory/player_inventory.tres")
-var is_opened :bool = false
+
 
 func _ready() -> void:
-	super()
 	_update_texture()
 	_update_label()
-	_update_chest_state()
-	print('chest_ready')
+	_refresh_open_state()
 	if Engine.is_editor_hint():
 		return
 	item_sprite.visible = false
 	#restore_persistent_states()
 
-func interact()->void:
-	if chest_state != ChestState.CLOSED:
-		return
-	chest_state = ChestState.OPENED
+func on_interacted() -> void:
 	#capture_persistent_states()
+	is_opened = true
 	if quantity > 0 and item:
 		PlayerManager.INVENTORY.add_item(item,quantity)
 		item_sprite.visible = true
@@ -44,7 +37,6 @@ func interact()->void:
 	
 
 func _set_item(value : Item)-> void:
-
 	item = value
 	_update_texture()
 	
@@ -63,16 +55,9 @@ func _update_label()->void:
 		self.label.text = 'x' + str(quantity)
 	else:
 		self.label.text =  ''
-func _set_chest_state(value : ChestState)->void:
-	chest_state = value
-	states['chest_state'] = value
-	if !sprite_2d:
-		return
-	_update_chest_state()
 	
-func _update_chest_state()->void:
-	match chest_state:
-		ChestState.CLOSED:
-			sprite_2d.frame = 0
-		ChestState.OPENED:
-			sprite_2d.frame = 1
+func _refresh_open_state()->void:
+	if is_opened:
+		sprite_2d.frame = 1
+	else:
+		sprite_2d.frame = 0
