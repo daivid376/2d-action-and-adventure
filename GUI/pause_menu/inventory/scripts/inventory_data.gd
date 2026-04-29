@@ -2,19 +2,24 @@ class_name Inventory extends Resource
 @export var slots : Array[ Slot ]
 #因为 初始化的时候，拿的是默认值，不是export后赋予的值，这里会连不上
 signal slots_rebuilt
+signal item_added(item,count,event)
+signal item_used(item,count,event)
 
 func setup() -> void:
 	_rebuild_slots()
+
 
 func add_item(item: Item,count : int = 1) -> bool:
 	for s in slots:
 		if not s.is_empty():
 			if item == s.item:
 				s.add_quantity(count)
+				item_added.emit(item,count,InventoryEvent.ADDED)
 				return true
 	for s in slots:
 		if s.is_empty():
 			s.set_item(item,count)
+			item_added.emit(item,count,InventoryEvent.ADDED)
 			return true
 	return false
 	
@@ -23,6 +28,7 @@ func use_item(item: Item, count : int = 1) -> bool:
 		for s in slots:
 			if s.item == item:
 				if s.use_slot(count):
+					item_used.emit(item,count,InventoryEvent.USED)
 					return true
 	return false
 func consume_item(item : Item, count : int = 1) -> bool:
@@ -30,6 +36,7 @@ func consume_item(item : Item, count : int = 1) -> bool:
 		for s in slots:
 			if s.item == item:
 				if s.consume_quantity(count):
+					item_used.emit(item,count,InventoryEvent.USED)
 					return true
 	return false
 func has_item(item: Item) -> bool:
@@ -77,7 +84,8 @@ func _apply_saved_slots(slot_to_set:Slot,saved_slots:Dictionary):
 	var item_res_path : String = saved_slots['item_res_path']
 	if not item_res_path.is_empty():
 		var load_item := ResourceLoader.load(item_res_path) as Item
-		slot_to_set.set_item(load_item,saved_slots['quantity'])
+		slot_to_set.item = load_item
+		slot_to_set.quantity = saved_slots['quantity']
 	else:
 		slot_to_set.clear()
 	

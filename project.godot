@@ -17,13 +17,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerHud="*uid://doqynmpbetcbd"
 PlayerManager="*uid://begd5hel6g38p"
 LevelManager="*uid://cn2m23c4rgyh"
 SceneTransitionGui="*uid://db7km50ek7qg8"
 PauseMenuGui="*uid://c0e5rgihlrqs0"
 SaveManager="*uid://bl0xjw020hlsy"
 PersistentDataManager="*uid://cupi0hn4bhrvo"
+PlayerHud="*uid://doqynmpbetcbd"
 
 [display]
 
@@ -42,6 +42,10 @@ version_control/autoload_on_startup=true
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 
@@ -80,6 +84,11 @@ interact={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/translations.en.translation", "res://localization/translations.zh_CN.translation")
+locale/test="en"
 
 [layer_names]
 

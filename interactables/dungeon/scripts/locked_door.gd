@@ -6,8 +6,8 @@ class_name LockedDoor extends OpenableInteractable
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../AudioStreamPlayer2D"
 @export var key_item : Item
 const DUNGEON_KEY = preload("uid://b7lo2f4hpkkwg") as Item
-const locked_door_audio: AudioStream = preload("res://interactables/dungeon/locked_door.wav") 
-const unlock_door_audio: AudioStream = preload("res://interactables/dungeon/unlock_door.wav")
+const locked_door_audio: AudioStream = preload("uid://cmiveikc1a31m") #locked_door
+const unlock_door_audio: AudioStream = preload("uid://dgc57i65drvht") #unlock_door
 
 func _ready() -> void:
 	_refresh_open_state()

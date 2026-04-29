@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c4xqtwj1bm5s4"]
 
-[ext_resource type="Script" uid="uid://ct04li1i2p6vc" path="res://interactables/dungeon/barred_door.gd" id="1_2y4v6"]
-[ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/dungeon_props.png" id="1_bvo6v"]
-[ext_resource type="AudioStream" uid="uid://dgc57i65drvht" path="res://interactables/dungeon/unlock_door.wav" id="2_twbs5"]
+[ext_resource type="Script" uid="uid://ct04li1i2p6vc" path="res://interactables/dungeon/scripts/barred_door.gd" id="1_2y4v6"]
+[ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/assets/dungeon_props.png" id="1_bvo6v"]
+[ext_resource type="AudioStream" uid="uid://dgc57i65drvht" path="res://interactables/dungeon/assets/unlock_door.wav" id="2_twbs5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvo6v"]
 size = Vector2(50, 60)

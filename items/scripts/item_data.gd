@@ -1,7 +1,7 @@
 class_name Item extends Resource
 @export var texture : Texture2D
-@export var item_name : String = ''
-@export_multiline var description : String = ''
+@export var name_key : StringName = ''
+@export var description_key : StringName = ''
 @export_category('Item Use Effect')
 @export var effects : Array[ItemEffect]
 

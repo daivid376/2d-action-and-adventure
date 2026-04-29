@@ -1,0 +1,12 @@
+keys,en,zh_CN
+UI_PAUSE_TITLE,Paused,暂停
+PAUSE_MENU_SAVE_BUTTON,Save,储存
+PAUSE_MENU_LOAD_BUTTON,Load,读取
+ITEM_APPLE,apple,苹果
+ITEM_DUNGEON_KEY,dungeon key,地牢钥匙
+ITEM_GEM,gem,宝石
+ITEM_POTION,potion,红药瓶
+ITEM_POTION_DESCRIPTION,use to heal,使用回血
+ITEM_STONE,stone,石头
+InventoryEvent_ADDED,obtained {item},获得了{item}
+InventoryEvent_USED,used {item},使用了{item}

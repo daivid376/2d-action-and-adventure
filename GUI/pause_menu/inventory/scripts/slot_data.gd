@@ -11,13 +11,10 @@ func set_item(new_item: Item,new_quantity: int):
 	self.quantity = max(new_quantity,0)
 	if self.is_empty():
 		self.clear()
-	slot_changed.emit()
-	
 
 func use_slot(count:int = 1)->bool:
 	if count > 0 and quantity >= count and item.use(count):
 		consume_quantity(count)
-		slot_changed.emit()
 		return true
 	return false
 	
@@ -25,7 +22,7 @@ func add_quantity(count:int = 1)->void:
 	if count <= 0:
 		return
 	quantity += count
-	slot_changed.emit()
+	print('add item')
 
 func consume_quantity(count:int = 1)-> bool:
 	if count <= 0:
@@ -34,13 +31,16 @@ func consume_quantity(count:int = 1)-> bool:
 		return false
 	else:
 		quantity -= count
-		slot_changed.emit()
 		return true
 	
 func _set_quantity(value : int)->void:
+	if quantity == max(value,0):
+		return
 	quantity = max(value,0)
 	if quantity == 0:
 		item = null
+	slot_changed.emit()
+	
 #func _set_item_data(value: Item)->void:
 	#item = value
 	#slot_changed.emit()
@@ -51,7 +51,6 @@ func is_empty()->bool:
 func clear()-> void:
 	item = null
 	quantity = 0
-	slot_changed.emit()
 	
 
 

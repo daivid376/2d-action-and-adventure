@@ -63,16 +63,16 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="Control/VBoxContainer" unique_id=226529128]
 layout_mode = 2
-text = "Paused"
+text = "UI_PAUSE_TITLE"
 horizontal_alignment = 1
 
 [node name="Save_Button" type="Button" parent="Control/VBoxContainer" unique_id=787071496]
 layout_mode = 2
-text = "save"
+text = "PAUSE_MENU_SAVE_BUTTON"
 
 [node name="Load_Button" type="Button" parent="Control/VBoxContainer" unique_id=1091014371]
 layout_mode = 2
-text = "load"
+text = "PAUSE_MENU_LOAD_BUTTON"
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1910072807]
 layout_direction = 2

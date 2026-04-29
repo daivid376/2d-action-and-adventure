@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://b84s8immmiklt"]
+
+[ext_resource type="Script" uid="uid://skeymwa8wqvf" path="res://GUI/player_hud/toast_item.gd" id="1_bbg7c"]
+[ext_resource type="Texture2D" uid="uid://b2f4py0qv7ljv" path="res://items/sprites/items.png" id="2_q25fe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q25fe"]
+bg_color = Color(0.27058825, 0.27058825, 0.27058825, 1)
+border_width_left = 9
+border_width_right = 9
+border_color = Color(0.27, 0.27, 0.27, 0)
+border_blend = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqj0b"]
+atlas = ExtResource("2_q25fe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="Animation" id="Animation_q25fe"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationRoot:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationRoot:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_oqj0b"]
+resource_name = "show"
+length = 2.1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationRoot:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 25, -0.34444445, 0, 0, 0),
+"times": PackedFloat32Array(0, 2.1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationRoot:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.033333335, 0.2725825, 0.95, -0.0888889, 0, 0.31111115, 0, 0.95, -0.31111115, 0, 0.26666665, 0, 0, -0.16666663, 0.0056124465, 0, 0),
+"times": PackedFloat32Array(0, 0.26666668, 1.4, 2.1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationRoot/PanelContainer:self_modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.033333335, 0.2725825, 0.4, -0.0888889, 0, 0.31111115, 0, 0.4, -0.31111115, 0, 0.26666665, 0, 0, -0.16666663, 0.0056124465, 0, 0),
+"times": PackedFloat32Array(0, 0.26666665, 1.3999999, 2.1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lf3ws"]
+_data = {
+&"RESET": SubResource("Animation_q25fe"),
+&"show": SubResource("Animation_oqj0b")
+}
+
+[node name="ToastItem" type="Control" unique_id=184372935]
+process_mode = 3
+modulate = Color(1, 1, 1, 0.8)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 3
+anchor_right = 0.21700001
+anchor_bottom = 0.063
+offset_right = -0.16000366
+offset_bottom = -0.010000229
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bbg7c")
+
+[node name="AnimationRoot" type="Control" parent="." unique_id=329467624]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="AnimationRoot" unique_id=1819781234]
+self_modulate = Color(1, 1, 1, 0.4)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q25fe")
+
+[node name="MarginContainer" type="MarginContainer" parent="AnimationRoot/PanelContainer" unique_id=718948806]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AnimationRoot/PanelContainer/MarginContainer" unique_id=1068618932]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="AnimationRoot/PanelContainer/MarginContainer/HBoxContainer" unique_id=1265590046]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+texture = SubResource("AtlasTexture_oqj0b")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="AnimationRoot/PanelContainer/MarginContainer/HBoxContainer" unique_id=2058779041]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "飘过的一行字"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1210993045]
+libraries/ = SubResource("AnimationLibrary_lf3ws")

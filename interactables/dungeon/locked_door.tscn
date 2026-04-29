@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://0tttynb75v8l"]
 
-[ext_resource type="Script" uid="uid://c12fl1c4y6wen" path="res://interactables/dungeon/locked_door.gd" id="1_n53nc"]
-[ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/dungeon_props.png" id="1_onbon"]
+[ext_resource type="Script" uid="uid://c12fl1c4y6wen" path="res://interactables/dungeon/scripts/locked_door.gd" id="1_n53nc"]
+[ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/assets/dungeon_props.png" id="1_onbon"]
 [ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="3_xbbsa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onbon"]

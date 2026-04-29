@@ -31,7 +31,7 @@ func set_slot_data(value: Slot)-> void:
 func update_item_description_label()-> void:
 	var item_description = ''
 	if !self.slot.is_empty():
-		item_description =self.slot.item.description
+		item_description =self.slot.item.description_key
 	else:
 		item_description = ''
 	PauseMenuGui.update_item_description(item_description)
@@ -40,8 +40,9 @@ func clear_item_description_label()-> void:
 	PauseMenuGui.update_item_description('')
 
 func item_pressed() -> void:
-	if !self.slot.is_empty():
-		slot.use_slot(1)
+	if !slot or slot.is_empty():
+		return
+	PlayerManager.INVENTORY.use_item(slot.item,1)
 
 func _refresh_ui()-> void:
 	if !slot or slot.is_empty():

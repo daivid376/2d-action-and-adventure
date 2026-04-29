@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b32wkaeim178v"]
 
-[ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/dungeon_props.png" id="1_kb1d5"]
-[ext_resource type="Script" uid="uid://brpguikif6ix0" path="res://interactables/dungeon/pressure_plate.gd" id="1_upfbp"]
+[ext_resource type="Texture2D" uid="uid://cmopirjc1u0ag" path="res://interactables/dungeon/assets/dungeon_props.png" id="1_kb1d5"]
+[ext_resource type="Script" uid="uid://brpguikif6ix0" path="res://interactables/dungeon/scripts/pressure_plate.gd" id="1_upfbp"]
 [ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="3_7ay0y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kb1d5"]

@@ -18,7 +18,7 @@ region = Rect2(32, 0, 32, 32)
 [resource]
 script = ExtResource("1_8h85v")
 texture = SubResource("AtlasTexture_gbvxt")
-item_name = "gem"
-description = "drink to heal "
+name_key = &"ITEM_POTION"
+description_key = &"ITEM_POTION_DESCRIPTION"
 effects = Array[ExtResource("1_s0kd1")]([SubResource("Resource_s0kd1")])
 metadata/_custom_type_script = "uid://djtihyl6t1ejn"

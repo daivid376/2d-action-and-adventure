@@ -1,6 +1,16 @@
 extends CanvasLayer
 @export var heart_scene : PackedScene
-@onready var hearts_container: HFlowContainer = $Control/HFlowContainer
+@onready var hearts_container: HFlowContainer = $Control/HeartContainer
+@onready var toast_container: ToastContainer = $Control/ToastContainer
+
+func _ready() -> void:
+	PlayerManager.INVENTORY.item_added.connect(_on_inventory_item_changed)
+	PlayerManager.INVENTORY.item_used.connect(_on_inventory_item_changed)
+
+func _on_inventory_item_changed(item: Item,count : int, event :StringName):
+	var formated_text = InventoryToastPresnter.format_inventory_toast(item,count,event)
+	toast_container.show_toast(formated_text,item.texture)
+	#toast_container.show_item_toast(item,count,toast_action)
 
 func update_hp_display(_hp:float,_max_hp:float)->void:
 	var prev_heart_count:int = hearts_container.get_children().size()

@@ -11,7 +11,5 @@ region = Rect2(64, 0, 32, 32)
 [resource]
 script = ExtResource("1_mwerj")
 texture = SubResource("AtlasTexture_gbvxt")
-item_name = "stone"
-description = "base resource
-"
+name_key = &"ITEM_STONE"
 metadata/_custom_type_script = "uid://djtihyl6t1ejn"
