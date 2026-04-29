@@ -1,4 +1,4 @@
 class_name InventoryEvent extends Node
 
-const ADDED := &'InventoryEvent_ADDED'
-const USED := &'InventoryEvent_USED'
+const ADDED := &'INV_EVENT_ADDED'
+const USED := &'INV_EVENT_USED'

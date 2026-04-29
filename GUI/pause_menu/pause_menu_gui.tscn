@@ -68,11 +68,11 @@ horizontal_alignment = 1
 
 [node name="Save_Button" type="Button" parent="Control/VBoxContainer" unique_id=787071496]
 layout_mode = 2
-text = "PAUSE_MENU_SAVE_BUTTON"
+text = "UI_PAUSE_SAVE_BUTTON"
 
 [node name="Load_Button" type="Button" parent="Control/VBoxContainer" unique_id=1091014371]
 layout_mode = 2
-text = "PAUSE_MENU_LOAD_BUTTON"
+text = "UI_PAUSE_LOAD_BUTTON"
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1910072807]
 layout_direction = 2
