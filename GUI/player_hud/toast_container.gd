@@ -12,7 +12,6 @@ func show_toast(text : String,icon : Texture2D = null)->void:
 	move_child(new_toast,0)
 	
 	#await new_toast.ready
-	print('show toast')
 	new_toast.setup(text,icon)
 	#new_toast.set_anchor()
 	new_toast.play()

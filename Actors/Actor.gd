@@ -13,6 +13,7 @@ class_name Actor extends CharacterBody2D
 @export var max_hp: float = 6.:
 	set(_v):
 		max_hp = _v
+		hp = clamp(hp,0,max_hp)
 		hp_changed.emit(hp,max_hp)
 
 var hp: float = max_hp:
@@ -21,9 +22,10 @@ var hp: float = max_hp:
 		hp_changed.emit(hp,max_hp)
 
 var invulnerable: bool = false
+var is_dying : bool = false
 
 signal damaged(hit_box : HitBox)
-signal died(hit_box : HitBox)
+signal start_dying(hit_box : HitBox)
 signal hp_changed(current_hp:float,current_max_hp: float)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -50,13 +52,14 @@ func _enable_collision()->void:
 	collision_shape_2d.set_deferred('disabled',false)
 
 func _take_damage(in_hit_box : HitBox) -> void:
-	if invulnerable:
+	if invulnerable or is_dying:
 		return
 	update_hp(-in_hit_box.damage)
 	if hp > 0.:
 		damaged.emit(in_hit_box)
 	else:
-		died.emit(in_hit_box)
+		is_dying = true
+		start_dying.emit(in_hit_box)
 	return
 func update_hp(delta: float)-> void:
 	hp = clamp(hp + delta,0.0,max_hp)
@@ -74,5 +77,3 @@ func make_invulnerable(_duration:float = 0.5)->void:
 	invulnerable = false
 	if hurt_box:
 		hurt_box.monitoring = true
-func can_be_saved()->bool:
-	return false

@@ -15,6 +15,7 @@ func _ready() -> void:
 func _capture_all()-> void:
 	for persistent_id in persistent_registry.keys():
 		capture_persistent_data(persistent_id)
+	print(persistent_snapshots)
 
 func capture_persistent_data(persistent_id:String) -> void:
 	if persistent_registry.has(persistent_id):

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b45spdu27thnj"]
+
+[ext_resource type="Script" uid="uid://bsqeddwhtb53" path="res://GeneralNodes/enemy_encounter/enemy_encounter.gd" id="1_5b8jq"]
+[ext_resource type="Script" uid="uid://ddv8rognil1v7" path="res://Components/persistent_component.gd" id="2_qw5o3"]
+[ext_resource type="Resource" uid="uid://b7lo2f4hpkkwg" path="res://items/dungeon_key.tres" id="2_ygtfr"]
+[ext_resource type="Texture2D" uid="uid://fb86g8in1h5f" path="res://Actors/Player/Sprites/shadow.png" id="3_oywbk"]
+[ext_resource type="Texture2D" uid="uid://b2f4py0qv7ljv" path="res://items/sprites/items.png" id="3_xf8dq"]
+[ext_resource type="AudioStream" uid="uid://cx2jwhpbj3b68" path="res://interactables/dungeon/assets/dungeon_discovery.wav" id="6_snwbe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05ex7"]
+atlas = ExtResource("3_xf8dq")
+region = Rect2(224, 0, 32, 32)
+
+[node name="EnemyEncounter" type="Node2D" unique_id=650108190]
+script = ExtResource("1_5b8jq")
+enemies = null
+loot_item = ExtResource("2_ygtfr")
+
+[node name="bg" type="Sprite2D" parent="." unique_id=114610078]
+modulate = Color(0.14169995, 0.65, 0.051999986, 0.49019608)
+position = Vector2(0, -1.0000002)
+scale = Vector2(1, 2.1875)
+texture = ExtResource("3_oywbk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=787077352]
+modulate = Color(0.21799994, 1, 0.07999998, 0.42745098)
+texture = SubResource("AtlasTexture_05ex7")
+
+[node name="PersistentComponent" type="Node" parent="." unique_id=715168419]
+script = ExtResource("2_qw5o3")
+metadata/_custom_type_script = "uid://ddv8rognil1v7"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1479708477]
+stream = ExtResource("6_snwbe")

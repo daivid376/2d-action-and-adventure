@@ -8,7 +8,7 @@ func _ready():
 	super()
 	PlayerHud.update_hp_display(hp,max_hp)
 	self.hp_changed.connect(_on_hp_changed)
-	self.died.connect(_on_died)
+	self.start_dying.connect(_on_died)
 	SaveManager.game_loaded.connect(_on_game_loaded)
 func can_be_saved()->bool:
 	return true

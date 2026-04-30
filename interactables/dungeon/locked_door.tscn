@@ -40,3 +40,5 @@ debug_color = Color(0, 0.64235723, 0.32436472, 0.41960785)
 [node name="PersistentComponent" type="Node" parent="." unique_id=1479564059]
 script = ExtResource("3_xbbsa")
 metadata/_custom_type_script = "uid://ddv8rognil1v7"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=148601730]

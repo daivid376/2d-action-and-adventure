@@ -3,8 +3,8 @@ class_name LockedDoor extends OpenableInteractable
 @onready var static_body_2d: StaticBody2D = $StaticBody2D
 @onready var static_collision: CollisionShape2D = $StaticBody2D/StaticCollision
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../AudioStreamPlayer2D"
 @export var key_item : Item
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 const DUNGEON_KEY = preload("uid://b7lo2f4hpkkwg") as Item
 const locked_door_audio: AudioStream = preload("uid://cmiveikc1a31m") #locked_door
 const unlock_door_audio: AudioStream = preload("uid://dgc57i65drvht") #unlock_door

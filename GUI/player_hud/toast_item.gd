@@ -11,7 +11,6 @@ extends Control
 @export var out_duration := 0.5
 
 func setup(text: String,icon : Texture2D = null) -> void:
-	print('setup text ',text)
 	label.text = text
 	texture_rect.texture = icon
 	texture_rect.visible = icon != null

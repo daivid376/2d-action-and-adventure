@@ -14,6 +14,8 @@ var pending_drop_dir:Vector2 = Vector2.ZERO
 var pending_deceleration:float = 0.
 var play_drop_animation_on_ready: bool = false
 var rand_index:int = 0
+
+signal picked_up
 func _ready() -> void:
 	_update_texture()
 	if Engine.is_editor_hint():
@@ -40,6 +42,7 @@ func _on_body_entered(_body:Node)->void:
 			item_pick_up()
 	pass
 func item_pick_up()->void:
+	picked_up.emit()
 	area_2d.body_entered.disconnect(_on_body_entered)
 	audio_stream_player_2d.play()
 	self.visible = false
